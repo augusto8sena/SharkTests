@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lebron</title>
+    <style>
+        :root {
+    --primary-color: #242424;
+    --secondary-color: #fe452a;
+    --accent-color: #f1c40f;
+    --text-color: #ecf0f1;
+    --background: #343434;
+}
+/* escolhi essas cores por serem as principais da marca do lebron james na nike e representa o time dele atual Los Angeles Lakers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background);
+    padding-top: 60px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    padding: 1rem 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+}
+
+nav .grid-container {
+    align-items: center;
+}
+
+nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+nav a:hover {
+    
+    transform: scale(1.15);
+    
+}
+
+
+/* Sections */
+section {
+    padding: 4rem 0;
+    position: relative;
+}
+
+h1 {
+    grid-column: 1 / -1;
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+h2 {
+    grid-column: 1 / -1;
+    color: var(--secondary-color);
+    margin: 2rem 0;
+    font-size: 2.5rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    background: var(--secondary-color);
+}
+
+.bio {
+    grid-column: 1 / 8;
+    position: relative;
+    z-index: 2;
+}
+
+.stats {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.stat-box {
+    background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+    padding: 2.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+.teams {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+/* ESTILOS PARA FLIP CARD */
+.flip-card {
+    perspective: 1000px;
+    height: 100%;
+    cursor: pointer;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 15px;
+}
+
+.team-card {
+    background: var(--primary-color);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+    height: 100%;
+}
+
+.flip-card-back {
+    background: var(--primary-color);
+    transform: rotateY(180deg);
+    padding: 15px;
+}
+
+.team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Estilos para Imagens */
+.hero-image {
+    grid-column: 8 / -1;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 500px;
+    transform: perspective(1500px) rotateY(15deg);
+    box-shadow: 20px 20px 40px rgba(0,0,0,0.3);
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+}
+
+.hero-image:hover img {
+    transform: scale(1.15);
+}
+
+.image-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin: 3rem 0;
+}
+
+.image-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: var(--primary-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%);
+}
+
+.image-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+.image-card:hover img {
+    filter: grayscale(0%);
+}
+
+.inline-image {
+    float: right;
+    width: 45%;
+    margin: 1rem 0 1rem 3rem;
+    border-radius: 15px;
+    shape-outside: margin-box;
+    border: 3px solid var(--secondary-color);
+}
+
+.team-logo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255,164,37,0.3));
+}
+
+/* Efeito Parallax */
+.parallax-section {
+    grid-column: 1 / -1;
+    min-height: 600px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.parallax-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(36,36,36,0.95) 30%, rgba(255,164,37,0.15) 100%);
+    display: flex;
+    align-items: center;
+    padding: 4rem;
+}
+
+@media (max-width: 1200px) {
+    .hero-image {
+        height: 400px;
+    }
+}
+
+@media (max-width: 992px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .hero-image {
+        grid-column: 1 / -1;
+        transform: none;
+        height: 400px;
+    }
+
+    .bio {
+        grid-column: 1 / -1;
+    }
+
+    .inline-image {
+        width: 100%;
+        float: none;
+        margin: 2rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .parallax-section {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+.flip-card {
+    perspective: 1000px;
+    height: 350px; /* Altura fixa para todos os cards */
+    min-width: 250px; /* Largura mínima */
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.flip-card-front {
+    background: var(--primary-color);
+    z-index: 2; /* Garante que a frente fique por cima */
+}
+
+.flip-card-back {
+    padding: 0; /* Remove padding para imagem ocupar todo espaço */
+    transform: rotateY(180deg);
+    background: var(--primary-color);
+}
+
+.team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.assinatura {
+    position: absolute;
+    top: 5px;
+    margin: auto;
+    right: 750px;
+    width: 250px; /* Ajuste conforme necessário */
+    text-align: left;
+}
+
+.titles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas iguais */
+    gap: 40px; /* Espaçamento entre as colunas */
+    align-items: center; /* Alinha verticalmente os itens */
+}
+
+.trofeu {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255,164,37,0.3));
+    justify-self: center; /* Centraliza a imagem na coluna */
+}
+
+
+#highlights {
+    background: var(--primary-color);
+    padding: 4rem 0;
+}
+
+@media (max-width: 992px) {
+    .titles-grid {
+        grid-template-columns: 1fr;
+        justify-content: center; 
+    align-items: center;
+    }
+}
+
+@media (min-width: 1200px) {
+    .titles-grid {
+        grid-template-columns: 1fr 1fr; /* Duas colunas */
+    }
+}
+
+/* Para tablets (largura entre 768px e 1200px) */
+@media (max-width: 1200px) and (min-width: 768px) {
+    .titles-grid {
+        grid-template-columns: 1fr; /* Uma coluna */
+        justify-content: center;
+        text-align: center;
+    }
+
+    .trofeu {
+        max-width: 400px; /* Reduz o tamanho da imagem */
+    }
+}
+
+/* Para celulares (largura menor que 768px) */
+@media (max-width: 768px) {
+    .titles-grid {
+        grid-template-columns: 1fr; /* Uma coluna */
+        gap: 20px; /* Reduz o espaçamento */
+        text-align: center;
+    }
+
+    .trofeu {
+        max-width: 300px; /* Reduz ainda mais o tamanho da imagem */
+    }
+
+    h1 {
+        font-size: 2rem; /* Ajusta o tamanho do título */
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Ajusta o tamanho do subtítulo */
+    }
+}
+
+.nav-container {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 30px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover img {
+    transform: scale(1.1);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: var(--primary-color);
+        flex-direction: column;
+        gap: 0;
+        transition: left 0.3s ease;
+        padding: 1rem 0;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .nav-links a:hover {
+        background-color: rgba(255,255,255,0.05);
+        transform: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-content {
+        padding: 0.5rem 15px;
+    }
+    
+    .logo img {
+        height: 40px;
+    }
+    
+    .nav-links {
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+    <img  src="../sharkteste/images/sharkgif.gif" class="assinatura" alt="Logo LeBron James" style="width: 600PX;">
+    <section id="bio">
+        <div class="grid-container">
+        
+            
+            
+            <div class="bio">
+                <h2>A TRAJETÓRIA DO REI </h2>
+                <p>Nascido em 30 de dezembro de 1984 em Akron, Ohio, LeBron Raymone James foi criado pela mãe solteira, Gloria James, em condições humildes. Mudou-se constantemente durante a infância, encontrando no basquete uma estabilidade e um propósito</p>
+                <H2>ESTRELA DO HIGH SCHOOL</H3>
+                <P>Aos 15 anos, ingressou no St. Vincent-St. Mary High School com uma bolsa de estudos. Em quatro anos, liderou o time a três títulos estaduais (1999, 2000, 2003) e foi eleito "Mr. Basketball" de Ohio três vezes. Seus jogos já lotavam arenas e eram transmitidos nacionalmente, algo inédito para um atleta do ensino médio.</P>
+                <H2>THE CHOSEN ONE</H2>
+                <P>Aos 17 anos, estampou a capa da Sports Illustrated com o título "The Chosen One", sendo considerado o maior prospecto da história do esporte. Na época, já recebia comparações com Michael Jordan e Magic Johnson.</P>
+                
+
+
+            </div>
+        </div>
+    </section>
+
+    <section id="stats">
+        <div class="grid-container">
+            <h2>ESTATÍSTICAS MONUMENTAIS</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>Pontos na Carreira</h3>
+                    <p>40,000+</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Assistências</h3>
+                    <p>10,000+</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Rebotes</h3>
+                    <p>10,000+</p>
+                </div>
+                <div class="stat-box">
+                    <h3>Tocos</h3>
+                    <p>900+</p>
+                </div>
+            </div>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="lebroninicio.jpg" 
+                         data-static="lebroninicio.jpg" 
+                         data-gif="lebron-james-dunk.gif" 
+                         alt="Enterrada épica">
+                </div>
+                <div class="image-card">
+                    <img src="LeBron-Jamespasse.jpg" 
+                         data-static="LeBron-Jamespasse.jpg" 
+                         data-gif="passelebron.gif" 
+                         alt="Passe preciso">
+                </div>
+                <div class="image-card">
+                    <img src="lebronrebote.jpg" 
+                         data-static="lebronrebote.jpg" 
+                         data-gif="lebronrebote.gif" 
+                         alt="Rebote agressivo">
+                </div>
+                <div class="image-card">
+                    <img src="LeBron-James-toco.jpg" 
+                         data-static="LeBron-James-toco.jpg" 
+                         data-gif="tocolebron.gif" 
+                         alt="Toco espetacular">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="titles">
+        <div class="grid-container" >
+            <h2>CONQUISTAS E TÍTULOS</h2>
+            <div class="parallax-section" style="background-image: url('trofeusfundo.jpg');" style="text-align: center;">
+                <div class="parallax-overlay">
+                    <div class="titles-grid">
+                        <div class="stats">
+                            <div class="stat-box">
+                                <h3>PLAYOFFS DA NBA</h3>
+                                <p>2012, 2013, 2016 E 2020</p>
+                            </div>
+                            <div class="stat-box">
+                                <h3>MVP - REGULAR SEASON</h3>
+                                <p>2009, 2010, 2012 e 2013</p>
+                            </div>
+                            <div class="stat-box">
+                                <h3>MEDALHAS OLÍMPICAS</h3>
+                                <p>2 OURO E 1 BRONZE</p>
+                            </div>
+                        </div>
+                        <div >
+                            <img src="trofeus.png" alt="troféus" class="trofeu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="teams">
+        <div class="grid-container">
+            <h2>TRAJETÓRIA NA NBA</h2>
+            <div class="teams">
+                <!-- Cleveland Cavaliers -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front team-card">
+                            <img class="team-logo" src="cleveland-cavaliers-logo.png" alt="Cavaliers">
+                            <h3>Cleveland Cavaliers</h3>
+                            <p>2003-2010 / 2014-2018</p>
+                            <P><br>🏆 Campeão NBA 2016 (Virada Histórica)</p>
+                            
+                        </div>
+                        <div class="flip-card-back">
+                            <img src="lebroncavs.jpg" class="team-photo" alt="LeBron nos Cavaliers">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Miami Heat -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front team-card">
+                            <img class="team-logo" src="Miami_Heat_logo.svg.png" alt="Heat">
+                            <h3>Miami Heat</h3>
+                            <p>2010-2014</p>
+
+                            
+                                <p><br>🏆🏆 Campeão NBA (2012, 2013)</p>
+                               
+                                
+                        
+                        </div>
+                        <div class="flip-card-back">
+                            <img src="lebronmiami.jpg" class="team-photo" alt="LeBron no Heat">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Los Angeles Lakers -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front team-card">
+                            <img class="team-logo" src="Los_Angeles_Lakers_logo.svg.png" alt="Lakers">
+                            <h3>Los Angeles Lakers</h3>
+                            <p>2018-Presente</p>
+
+                            <p><br>🏆 Campeão NBA 2020 (Bolha)</p>
+                        
+                        </div>
+                        <div class="flip-card-back">
+                            <img src="lebronlakers.jpg" class="team-photo" alt="LeBron nos Lakers">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="highlights">
+        <div class="grid-container">
+            <h2>MOMENTOS ÉPICOS</h2>
+            <div class="video-container" style="width: 100%; max-width: 800px; margin: 0 auto;">
+                
+                <iframe src="https://www.youtube.com/embed/2Q0v1g3j4xE" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        
+       
+        document.querySelectorAll('.flip-card').forEach(card => {
+            let isFlipped = false;
+            
+            card.addEventListener('click', function() {
+                isFlipped = !isFlipped;
+                this.classList.toggle('flipped', isFlipped);
+            });
+
+            card.addEventListener('mouseenter', function() {
+                if(!isFlipped) {
+                    this.style.transform = 'translateY(-5px)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if(!isFlipped) {
+                    this.style.transform = 'none';
+                }
+            });
+        });
+
+         // Smooth scroll para navegação
+         document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = document.querySelector(this.getAttribute('href'));
+                section.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Exceção para o link do logo
+        document.querySelector('nav a[target="_blank"]').addEventListener('click', function(e) {
+            e.stopPropagation(); // Permite abrir link externo normalmente
+        });
+
+         // Ativação dos GIFs no hover
+    document.querySelectorAll('.image-card img').forEach(img => {
+        // Pré-carrega os GIFs
+        const gif = new Image();
+        gif.src = img.dataset.gif;
+
+        // Eventos de hover
+        img.parentElement.addEventListener('mouseenter', function() {
+            img.src = img.dataset.gif;
+        });
+
+        img.parentElement.addEventListener('mouseleave', function() {
+            img.src = img.dataset.static;
+        });
+    });
+
+    // Pausa GIFs quando não estão visíveis
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            document.querySelectorAll('.image-card img').forEach(img => {
+                img.src = img.dataset.static;
+            });
+        }
+    });
+        // Script para flip cards
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+
+            // Manter hover apenas quando não estiver flipado
+            card.addEventListener('mouseenter', function() {
+                if(!this.classList.contains('flipped')) {
+                    this.querySelector('.team-card').style.transform = 'translateY(-5px)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.team-card').style.transform = 'none';
+            });
+        });
+   
+        const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    menuToggle.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+});
+
+// Fechar menu ao clicar em um link
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    });
+});
+    </script>
+    
+</body>
+</html>
