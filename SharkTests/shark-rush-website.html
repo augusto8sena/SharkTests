@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shark Rush - Academia Moderna</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --main-bg-color: #0f0f11;
+            --secondary-bg-color: #1a1a1d;
+            --red-glow: #ff0026;
+            --red-glow-transparent: rgba(255, 0, 38, 0.3);
+            --text-color: #f5f5f5;
+            --accent-color: #ff0026;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--main-bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--secondary-bg-color);
+            padding: 20px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(255, 0, 38, 0.15);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, var(--red-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 10px;
+        }
+
+        .logo::before {
+            content: "";
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--red-glow), transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--red-glow);
+        }
+
+        .led-effect {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--red-glow);
+            box-shadow: 0 0 20px 5px var(--red-glow);
+            animation: pulseLed 4s infinite;
+        }
+
+        .hero {
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--red-glow);
+            box-shadow: 0 0 10px var(--red-glow);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--secondary-bg-color);
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 4px;
+            border: 1px solid var(--red-glow);
+            box-shadow: 0 0 15px var(--red-glow-transparent);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--red-glow-transparent), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .glow-circle {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--red-glow-transparent) 0%, transparent 70%);
+            filter: blur(60px);
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .glow-circle-1 {
+            top: -100px;
+            right: 10%;
+            animation: float1 15s infinite alternate ease-in-out;
+        }
+
+        .glow-circle-2 {
+            bottom: -150px;
+            left: 5%;
+            animation: float2 20s infinite alternate ease-in-out;
+        }
+
+        /* Seção do carrossel personalizado */
+        .custom-carousel-section {
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--red-glow);
+            box-shadow: 0 0 10px var(--red-glow);
+        }
+
+        /* Container para o seu carrossel personalizado */
+        #custom-carousel-container {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 0 25px rgba(255, 0, 38, 0.2);
+            background-color: var(--secondary-bg-color);
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        .features {
+            padding: 80px 0;
+            background-color: var(--secondary-bg-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background-color: var(--main-bg-color);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--red-glow);
+            z-index: 0;
+            box-shadow: 0 0 15px var(--red-glow);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 0, 38, 0.15);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 0, 38, 0.1);
+            border-radius: 50%;
+            font-size: 24px;
+            color: var(--red-glow);
+            position: relative;
+        }
+
+        .feature-icon::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--red-glow);
+            animation: pulseRing 2s infinite;
+            opacity: 0;
+        }
+
+        .feature-card:hover .feature-icon::after {
+            opacity: 1;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: var(--secondary-bg-color);
+            padding: 50px 0 20px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--red-glow);
+            box-shadow: 0 0 5px var(--red-glow);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-color);
+            opacity: 0.7;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            opacity: 1;
+            color: var(--red-glow);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        @keyframes pulseLed {
+            0%, 100% {
+                box-shadow: 0 0 15px 3px var(--red-glow);
+                opacity: 0.8;
+            }
+            50% {
+                box-shadow: 0 0 25px 5px var(--red-glow);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float1 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 30px); }
+        }
+
+        @keyframes float2 {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-30px, -30px); }
+        }
+
+        @keyframes pulseRing {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-text">Shark Rush</span>
+            </div>
+            <!-- Barra de navegação removida conforme solicitado -->
+        </div>
+        <div class="led-effect"></div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Domine as águas, conquiste seu corpo</h1>
+            <p>A academia de natação mais avançada para te transformar em um verdadeiro tubarão nas águas, com treinos personalizados, equipamentos de ponta e monitoramento em tempo real.</p>
+            <a href="#" class="cta-button">Mergulhe agora</a>
+        </div>
+        <div class="glow-circle glow-circle-1"></div>
+        <div class="glow-circle glow-circle-2"></div>
+    </section>
+
+    <section class="custom-carousel-section">
+        <div class="container">
+            <h2 class="section-title">Modalidades em Destaque</h2>
+            
+            <!-- Aqui você insere seu carrossel personalizado -->
+            <div id="custom-carousel-container">
+                <!-- Insira seu carrossel aqui -->
+                <div style="padding: 40px; text-align: center;">
+                    <p>Seu carrossel personalizado será inserido aqui</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Recursos Exclusivos</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌊</div>
+                    <h3>Análise de Performance</h3>
+                    <p>Monitore sua técnica de natação com tecnologia avançada e receba feedback personalizado para melhorar seu desempenho.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🦈</div>
+                    <h3>Treinos Adaptáveis</h3>
+                    <p>Programas especializados que se ajustam ao seu nível, objetivos específicos e progresso contínuo nas águas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🥇</div>
+                    <h3>Competições Internas</h3>
+                    <p>Participe de desafios semanais e competições mensais para testar suas habilidades e celebrar seu progresso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Shark Rush</h4>
+                    <ul>
+                        <li><a href="#">Sobre nós</a></li>
+                        <li><a href="#">Nossa equipe</a></li>
+                        <li><a href="#">Trabalhe conosco</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Ajuda</a></li>
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Comunidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Termos de uso</a></li>
+                        <li><a href="#">Privacidade</a></li>
+                        <li><a href="#">Cookies</a></li>
+                        <li><a href="#">Licenças</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Baixe o App</h4>
+                    <ul>
+                        <li><a href="#">App Store</a></li>
+                        <li><a href="#">Google Play</a></li>
+                        <li><a href="#">App Gallery</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Shark Rush. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Função para facilitar a integração do seu carrossel personalizado
+        function initializeCustomCarousel() {
+            const carouselContainer = document.getElementById('custom-carousel-container');
+            
+            // Você pode inserir aqui o código para inicializar seu carrossel
+            // Exemplo:
+            // carouselContainer.innerHTML = seuCarrosselHTML;
+            // seuCarrosselInicializar();
+            
+            console.log('Pronto para receber seu carrossel personalizado!');
+        }
+
+        // Efeito de LED pulsante adicional
+        function createLEDEffect() {
+            const ledElement = document.createElement('div');
+            ledElement.classList.add('led-effect');
+            
+            // Posição aleatória
+            const randomPosition = Math.random() * 100;
+            ledElement.style.width = `${Math.random() * 50 + 50}px`;
+            ledElement.style.left = `${randomPosition}%`;
+            
+            // Duração da animação aleatória
+            const animationDuration = Math.random() * 3 + 2;
+            ledElement.style.animation = `pulseLed ${animationDuration}s infinite`;
+            
+            // Adicionar ao corpo e remover após a animação
+            document.body.appendChild(ledElement);
+            
+            setTimeout(() => {
+                ledElement.remove();
+            }, animationDuration * 1000);
+        }
+
+        // Adicionar efeitos LED aleatórios periodicamente
+        setInterval(createLEDEffect, 2000);
+
+        // Efeito de hover nas feature cards
+        const featureCards = document.querySelectorAll('.feature-card');
+        
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.boxShadow = `0 10px 30px rgba(255, 0, 38, 0.25)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = '';
+            });
+        });
+
+        // Efeito de carregamento da página
+        window.addEventListener('load', () => {
+            document.body.classList.add('loaded');
+            
+            // Adicionar efeito de entrada aos elementos
+            const animatedElements = document.querySelectorAll('.hero h1, .hero p, .cta-button, .section-title, .feature-card');
+            
+            animatedElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.style.opacity = '0';
+                    element.style.transform = 'translateY(20px)';
+                    element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    
+                    setTimeout(() => {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+            
+            // Inicializar o carrossel personalizado
+            initializeCustomCarousel();
+        });
+
+        // Efeito de partículas LED
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.style.position = 'fixed';
+            particlesContainer.style.top = '0';
+            particlesContainer.style.left = '0';
+            particlesContainer.style.width = '100%';
+            particlesContainer.style.height = '100%';
+            particlesContainer.style.pointerEvents = 'none';
+            particlesContainer.style.zIndex = '9';
+            document.body.appendChild(particlesContainer);
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createParticle(particlesContainer);
+                }, i * 300);
+            }
+        }
+        
+        function createParticle(container) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = `${Math.random() * 3 + 1}px`;
+            particle.style.height = `${Math.random() * 3 + 1}px`;
+            particle.style.backgroundColor = 'rgba(255, 0, 38, 0.8)';
+            particle.style.borderRadius = '50%';
+            particle.style.boxShadow = '0 0 10px rgba(255, 0, 38, 0.8)';
+            
+            // Posições iniciais
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            
+            particle.style.left = `${startX}px`;
+            particle.style.top = `${startY}px`;
+            
+            container.appendChild(particle);
+            
+            // Animação
+            const duration = Math.random() * 10 + 5;
+            const endX = startX + (Math.random() - 0.5) * 200;
+            const endY = startY + (Math.random() - 0.5) * 200;
+            
+            particle.animate([
+                { 
+                    left: `${startX}px`,
+                    top: `${startY}px`,
+                    opacity: 0,
+                    transform: 'scale(0)'
+                },
+                {
+                    opacity: 1,
+                    transform: 'scale(1)'
+                },
+                { 
+                    left: `${endX}px`,
+                    top: `${endY}px`,
+                    opacity: 0,
+                    transform: 'scale(0)'
+                }
+            ], {
+                duration: duration * 1000,
+                easing: 'ease-in-out'
+            }).onfinish = () => {
+                particle.remove();
+                createParticle(container);
+            };
+        }
+        
+        // Iniciar partículas com atraso para não prejudicar o carregamento
+        setTimeout(createParticles, 2000);
+        
+        // Efeito de foco na pesquisa
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            const glowCircles = document.querySelectorAll('.glow-circle');
+            
+            glowCircles.forEach(circle => {
+                const rect = circle.getBoundingClientRect();
+                const circleX = rect.left + rect.width / 2;
+                const circleY = rect.top + rect.height / 2;
+                
+                // Calcular distância entre cursor e círculo
+                const dx = mouseX - circleX;
+                const dy = mouseY - circleY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                // Mover círculo ligeiramente em direção ao cursor
+                if (distance < 500) {
+                    const moveX = dx * 0.05;
+                    const moveY = dy * 0.05;
+                    
+                    circle.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    circle.style.opacity = '0.5';
+                } else {
+                    circle.style.transform = '';
+                    circle.style.opacity = '0.3';
+                }
+            });
+        });
+        
+        // Efeito de texto digitando na hero section
+        function typeText(element, text, speed = 50) {
+            let i = 0;
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+        
+        // Aplicar efeito de digitação ao subtítulo da hero section
+        const heroSubtitle = document.querySelector('.hero p');
+        const originalText = heroSubtitle.textContent;
+        
+        // Iniciar digitação após um pequeno atraso
+        setTimeout(() => {
+            typeText(heroSubtitle, originalText, 30);
+        }, 1000);
+        
+        // Adicionar efeito de hover no CTA
+        const ctaButton = document.querySelector('.cta-button');
+        
+        ctaButton.addEventListener('mouseenter', () => {
+            // Criar efeito de brilho
+            const glowEffect = document.createElement('div');
+            glowEffect.style.position = 'absolute';
+            glowEffect.style.top = '0';
+            glowEffect.style.left = '0';
+            glowEffect.style.width = '100%';
+            glowEffect.style.height = '100%';
+            glowEffect.style.background = 'radial-gradient(circle, rgba(255,0,38,0.4) 0%, rgba(255,0,38,0) 70%)';
+            glowEffect.style.opacity = '0';
+            glowEffect.style.transition = 'opacity 0.3s ease';
+            glowEffect.style.borderRadius = '4px';
+            glowEffect.style.pointerEvents = 'none';
+            
+            ctaButton.style.position = 'relative';
+            ctaButton.appendChild(glowEffect);
+            
+            setTimeout(() => {
+                glowEffect.style.opacity = '1';
+            }, 10);
+        });
+        
+        ctaButton.addEventListener('mouseleave', () => {
+            const glowEffect = ctaButton.querySelector('div');
+            if (glowEffect) {
+                glowEffect.style.opacity = '0';
+                setTimeout(() => {
+                    glowEffect.remove();
+                }, 300);
+            }
+        });
+
+        // Instruções de integração para seu carrossel personalizado:
+        /*
+        COMO INTEGRAR SEU CARROSSEL:
+        
+        1. Localize o elemento com id="custom-carousel-container" no HTML
+        2. Insira o HTML do seu carrossel dentro deste container
+        3. Adicione o código JavaScript do seu carrossel na função initializeCustomCarousel()
+        4. Personalize os estilos do carrossel de acordo com suas necessidades
+        
+        Exemplo de código para integração:
+        
+        function initializeCustomCarousel() {
+            const carouselContainer = document.getElementById('custom-carousel-container');
+            
+            // Insira o HTML do seu carrossel
+            carouselContainer.innerHTML = `
+                <div class="seu-carrossel">
+                    <!-- Seus slides aqui -->
+                </div>
+            `;
+            
+            // Execute a função de inicialização do seu carrossel
+            seuCarrosselInit();
+        }
+        */
+    </script>
+</body>
+</html>
