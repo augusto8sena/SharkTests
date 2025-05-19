@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augusto Sena | Portfólio</title>
+    <style>
+        :root {
+            --purple: #8A2BE2;
+            --dark-purple: #4B0082;
+            --black: #121212;
+            --dark-gray: #1E1E1E;
+            --light-gray: #333333;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark-gray);
+            padding: 20px 0;
+            position: relative;
+            border-bottom: 2px solid var(--purple);
+            box-shadow: 0 0 15px var(--purple);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 0 0 8px var(--purple);
+        }
+        
+        .logo span {
+            color: var(--purple);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--purple);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--purple);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px var(--purple);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(var(--purple), transparent 70%);
+            opacity: 0.1;
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(var(--purple), transparent 70%);
+            opacity: 0.1;
+            bottom: -200px;
+            left: -100px;
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(50px, 50px);
+            }
+            50% {
+                transform: translate(0, 100px);
+            }
+            75% {
+                transform: translate(-50px, 50px);
+            }
+        }
+        
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+        
+        .hero-text h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background-color: var(--purple);
+            box-shadow: 0 0 10px var(--purple);
+        }
+        
+        .hero-text p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+        
+        .profile-image {
+            flex: 0 0 350px;
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid var(--purple);
+            box-shadow: 0 0 20px var(--purple);
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .upload-overlay:hover {
+            opacity: 0.9;
+        }
+        
+        .upload-overlay i {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+        
+        .upload-overlay p {
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--purple);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+        
+        .cta-btn:hover {
+            background-color: var(--dark-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.7);
+        }
+        
+        .cta-btn:hover::before {
+            left: 100%;
+        }
+        
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            background-color: var(--black);
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--light-gray);
+            z-index: 0;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .about-card {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--purple);
+        }
+        
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--purple), transparent);
+            animation: animate-border 2s linear infinite;
+        }
+        
+        @keyframes animate-border {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .about-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--purple);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .about-card ul {
+            list-style-position: inside;
+            margin-top: 15px;
+        }
+        
+        .about-card li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .about-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--purple);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--light-gray);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 10px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            animation: fadeIn 1s ease-in-out;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--black);
+            border: 4px solid var(--purple);
+            border-radius: 50%;
+            top: 15px;
+            right: -10px;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--purple);
+        }
+        
+        .timeline-item.left {
+            left: 0;
+        }
+        
+        .timeline-item.right {
+            left: 50%;
+        }
+        
+        .timeline-item.right::after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border-left: 3px solid var(--purple);
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--purple);
+        }
+        
+        .timeline-content .date {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        .timeline-content p {
+            line-height: 1.6;
+        }
+        
+        .github-section {
+            background-color: var(--dark-gray);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .github-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(var(--purple), transparent 70%);
+            opacity: 0.05;
+            top: -250px;
+            right: -250px;
+            border-radius: 50%;
+        }
+        
+        .github-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .github-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .github-content p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #ccc;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: var(--black);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--purple);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .github-btn i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .github-btn:hover {
+            background-color: var(--purple);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.5);
+        }
+        
+        .social-section {
+            padding: 80px 0;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .social-card {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 0 0 15px var(--purple);
+            border-color: var(--purple);
+        }
+        
+        .social-card a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            text-decoration: none;
+            color: var(--white);
+            height: 100%;
+        }
+        
+        .social-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--purple);
+            transition: all 0.3s ease;
+        }
+        
+        .social-card:hover .social-icon {
+            transform: scale(1.2);
+            text-shadow: 0 0 15px var(--purple);
+        }
+        
+        .social-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .social-card p {
+            text-align: center;
+            color: #aaa;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            border-top: 2px solid var(--purple);
+            box-shadow: 0 0 15px var(--purple);
+        }
+        
+        .footer-content p {
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            margin: 0 15px;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--purple);
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        @media screen and (max-width: 992px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-top: 50px;
+            }
+            
+            .hero-text h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item.right {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+                right: auto;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-bottom: 20px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .profile-image {
+                flex: 0 0 300px;
+                height: 300px;
+            }
+            
+            .hero {
+                height: auto;
+                padding: 80px 0;
+            }
+        }
+        
+        /* Efeito de LED */
+        .led-effect {
+            position: absolute;
+            height: 2px;
+            background-color: var(--purple);
+            box-shadow: 0 0 15px var(--purple);
+            animation: led-animation 3s infinite linear;
+        }
+        
+        .led-left {
+            width: 200px;
+            top: 50px;
+            left: 0;
+        }
+        
+        .led-right {
+            width: 150px;
+            bottom: 70px;
+            right: 0;
+        }
+        
+        @keyframes led-animation {
+            0%, 100% {
+                opacity: 0.6;
+                box-shadow: 0 0 15px var(--purple);
+            }
+            50% {
+                opacity: 1;
+                box-shadow: 0 0 25px var(--purple);
+            }
+        }
+        
+        /* Efeito de Digitação */
+        .typing-effect {
+            border-right: 3px solid var(--purple);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(40) 1s forwards, blink 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: var(--purple) }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Efeitos de LED -->
+    <div class="led-effect led-left"></div>
+    <div class="led-effect led-right"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#experience">Experiência</a></li>
+                    <li><a href="#github">GitHub</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h2 class="typing-effect">Augusto Sena</h2>
+                <p>Programador Front-end e Técnico em Manutenção Industrial</p>
+                <p>Desenvolvedor de 17 anos apaixonado por criar interfaces interativas e modernas. Combinando conhecimentos técnicos em programação e manutenção industrial para desenvolver soluções eficientes.</p>
+                <a href="#contact" class="cta-btn">Entre em contato</a>
+            </div>
+            <div class="profile-image">
+                <img id="profileImg" src="../SharkTests/images/Imagem do WhatsApp de 2025-05-18 à(s) 21.02.45_dbc50cdc.jpg" alt="Augusto Sena">
+                
+        
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre Mim</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>Qualificações</h3>
+                    <p>Jovem programador com experiência em desenvolvimento front-end e manutenção industrial.</p>
+                    <ul>
+                        <li>Programação Front-end</li>
+                        <li>HTML, CSS e JavaScript</li>
+                        <li>Manutenção Industrial</li>
+                        <li>Solução de problemas</li>
+                    </ul>
+                </div>
+                <div class="about-card">
+                    <h3>Formação Acadêmica</h3>
+                    <ul>
+                        <li>SENAI - Desenvolvimento de Sistemas</li>
+                        <li>Microcamp - Informática Avançada</li>
+                        <li>Fisk - Inglês Intermediário</li>
+                        <li>Microcamp - Desenvolvimento de Jogos Virtuais</li>
+                        <li>SENAI - Segurança no Trabalho</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experiência Profissional</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>AMS - Auxiliar Técnico</h3>
+                        <div class="date">2025</div>
+                        <p>Atuação como auxiliar técnico, aplicando conhecimentos em manutenção industrial e desenvolvimento de soluções técnicas.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Gaplast - Auxiliar Técnico</h3>
+                        <div class="date">2023</div>
+                        <p>Experiência no suporte técnico e manutenção de equipamentos industriais, aplicando conhecimentos de programação para otimização de processos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Section -->
+    <section class="github-section" id="github">
+        <div class="container github-content">
+            <h2>Meus Projetos no GitHub</h2>
+            <p>Conheça meus repositórios e projetos de desenvolvimento. Veja meu código, contribuições e acompanhe minha evolução como programador.</p>
+            <a href="https://github.com/augusto8sena" target="_blank" class="github-btn">
+                <i class="fab fa-github"></i> Ver Repositórios
+            </a>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section class="social-section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Redes Sociais</h2>
+            </div>
+            <div class="social-grid">
+                <div class="social-card">
+                    <a href="https://www.instagram.com/aug.sena/" target="_blank">
+                        <i class="fab fa-instagram social-icon"></i>
+                        <h3>Instagram</h3>
+                        <p>@aug.sena</p>
+                    </a>
+                </div>
+                <div class="social-card">
+                    <a href="https://wa.me/5511941369774" target="_blank">
+                        <i class="fab fa-whatsapp social-icon"></i>
+                        <h3>WhatsApp</h3>
+                        <p>(11) 94136-9774</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>Entre em contato para oportunidades de trabalho e projetos.</p>
+            <div class="footer-links">
+                <a href="#home">Início</a>
+                <a href="#about">Sobre</a>
+                <a href="#experience">Experiência</a>
+                <a href="#github">GitHub</a>
+                <a href="#contact">Contato</a>
+            </div>
+            <div class="copyright">
+                &copy; <span id="currentYear"></span> Augusto Sena. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Atualizar o ano no copyright
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Funcionalidade para upload de imagem
+        const fileInput = document.getElementById('fileInput');
+        const profileImg = document.getElementById('profileImg');
+        const uploadOverlay = document.querySelector('.upload-overlay');
+        
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profileImg.src = e.target.result;
+                    uploadOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        uploadOverlay.style.display = 'none';
+                    }, 300);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Efeito de digitação para múltiplos elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adicionar efeito de scroll suave
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Animação de fade-in para os cards ao scrollar
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.about-card, .timeline-item, .social-card').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+            
+            // Adicionar classe para animação
+            document.addEventListener('scroll', () => {
+                document.querySelectorAll('.animate-in').forEach(item => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Efeito de partículas no fundo
+            const particlesCount = 20;
+            const body = document.querySelector('body');
+            
+            for (let i = 0; i < particlesCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'fixed';
+                particle.style.width = `${Math.random() * 3 + 1}px`;
+                particle.style.height = particle.style.width;
+                particle.style.background = 'rgba(138, 43, 226, 0.3)';
+                particle.style.borderRadius = '50%';
+                particle.style.pointerEvents = 'none';
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.boxShadow = '0 0 5px rgba(138, 43, 226, 0.5)';
+                particle.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
+                body.appendChild(particle);
+            }
+            
+            // Efeito de destaque para os botões
+            const buttons = document.querySelectorAll('.cta-btn, .github-btn');
+            buttons.forEach(button => {
+                button.addEventListener('mouseover', function() {
+                    this.style.transform = 'scale(1.05) translateY(-3px)';
+                });
+                
+                button.addEventListener('mouseout', function() {
+                    this.style.transform = 'scale(1) translateY(0)';
+                });
+            });
+            
+            // Efeito de LED pulsante nas bordas
+            function createPulsingLed() {
+                const led = document.createElement('div');
+                led.className = 'pulsing-led';
+                led.style.position = 'fixed';
+                led.style.width = '5px';
+                led.style.height = '5px';
+                led.style.borderRadius = '50%';
+                led.style.backgroundColor = 'var(--purple)';
+                led.style.boxShadow = '0 0 10px var(--purple), 0 0 20px var(--purple)';
+                led.style.zIndex = '100';
+                led.style.opacity = '0.7';
+                
+                // Posição aleatória na borda da tela
+                const side = Math.floor(Math.random() * 4);
+                
+                if (side === 0) { // topo
+                    led.style.top = '0';
+                    led.style.left = `${Math.random() * 100}%`;
+                } else if (side === 1) { // direita
+                    led.style.top = `${Math.random() * 100}%`;
+                    led.style.right = '0';
+                } else if (side === 2) { // baixo
+                    led.style.bottom = '0';
+                    led.style.left = `${Math.random() * 100}%`;
+                } else { // esquerda
+                    led.style.top = `${Math.random() * 100}%`;
+                    led.style.left = '0';
+                }
+                
+                // Animação de pulsar
+                led.style.animation = `pulse ${Math.random() * 3 + 2}s infinite ease-in-out`;
+                
+                document.body.appendChild(led);
+                
+                // Remover após algum tempo
+                setTimeout(() => {
+                    led.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(led);
+                    }, 1000);
+                }, Math.random() * 5000 + 2000);
+            }
+            
+            // Criar LEDs periodicamente
+            setInterval(createPulsingLed, 1000);
+            
+            // Adicionar efeito de hover nas cards
+            document.querySelectorAll('.about-card, .social-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px var(--purple)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        });
