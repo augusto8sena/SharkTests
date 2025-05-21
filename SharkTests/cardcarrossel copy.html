@@ -23,7 +23,7 @@
 
 body {
 	font-family: "Poppins", sans-serif;
-	background-color: #1e1e1e;
+	background-color: #0e0e0e;
 	color: #fff;
 	min-height: 100vh;
 	display: flex;
@@ -60,7 +60,7 @@ body {
 	position: relative;
 	border-radius: 20px;
 	overflow: hidden;
-	background: rgba(255, 255, 255, 0.05);
+	background: rgba(12, 12, 12, 0.05);
 	backdrop-filter: blur(10px);
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 	transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -466,7 +466,7 @@ body {
             margin-bottom: 40px;
             position: relative;
             display: inline-block;
-            left: 50%;
+            
             transform: translateX(-50%);
         }
 
@@ -474,7 +474,7 @@ body {
             content: "";
             position: absolute;
             bottom: -10px;
-            left: 0;
+            
             width: 100%;
             height: 3px;
             background: var(--red-glow);
@@ -649,6 +649,92 @@ body {
 		</div>
 	</div>
 </div>
+<h2 class="section-title">Treinos em Destaque</h2>
+<section class="workout-carousel-section">
+        <div class="container">
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-item">
+                        <img src="/api/placeholder/400/320" alt="Agachamento" class="exercise-img" />
+                        <div class="exercise-content">
+                            <h3>Agachamento com Barra</h3>
+                            <p>O rei dos exercícios para pernas. O agachamento trabalha quadríceps, glúteos e isquiotibiais de forma intensa, contribuindo para o ganho de força e massa muscular nas pernas.</p>
+                            <div class="exercise-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">85%</div>
+                                    <div class="stat-label">Eficiência</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">4</div>
+                                    <div class="stat-label">Séries</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">12</div>
+                                    <div class="stat-label">Repetições</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/api/placeholder/400/320" alt="Supino" class="exercise-img" />
+                        <div class="exercise-content">
+                            <h3>Supino Reto</h3>
+                            <p>Exercício essencial para o desenvolvimento do peitoral. O supino reto trabalha principalmente o peitoral maior, mas também envolve os ombros e tríceps como músculos secundários.</p>
+                            <div class="exercise-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">90%</div>
+                                    <div class="stat-label">Eficiência</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">4</div>
+                                    <div class="stat-label">Séries</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">10</div>
+                                    <div class="stat-label">Repetições</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/api/placeholder/400/320" alt="Barra Fixa" class="exercise-img" />
+                        <div class="exercise-content">
+                            <h3>Barra Fixa</h3>
+                            <p>Excelente exercício para as costas. A barra fixa trabalha principalmente o latíssimo do dorso, mas também envolve o bíceps, ombros e antebraços para um desenvolvimento completo.</p>
+                            <div class="exercise-stats">
+                                <div class="stat-item">
+                                    <div class="stat-value">88%</div>
+                                    <div class="stat-label">Eficiência</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">3</div>
+                                    <div class="stat-label">Séries</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">8</div>
+                                    <div class="stat-label">Repetições</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn">&lt;</button>
+                    <button class="carousel-btn next-btn">&gt;</button>
+                </div>
+                
+                <div class="carousel-indicators">
+                    <div class="indicator active" data-index="0"></div>
+                    <div class="indicator" data-index="1"></div>
+                    <div class="indicator" data-index="2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
 <script>
 
 	// Efeito de LED pulsante adicional

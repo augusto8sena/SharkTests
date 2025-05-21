@@ -54,42 +54,41 @@ p {
 }
 
 .waves {
-  position:relative;
-  width: 100%;
-  height:15vh;
-  margin-bottom:-7px; /*Fix for safari gap*/
-  min-height:100px;
-  max-height:150px;
-}
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ocupa toda a tela */
+    margin-bottom: -7px; /* Fix para o gap no Safari */
+    min-height: 100px;
+    max-height: 100vh; /* Garante que ocupe toda a altura */
+  }
 
-.content {
-  position:relative;
-  height:20vh;
-  text-align:center;
-  background-color: rgb(255, 255, 255);
-}
+  .parallax > use {
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+  }
 
-/* Animation */
+  .parallax > use:nth-child(1) {
+    animation-delay: -2s;
+    animation-duration: 7s;
+    fill: rgba(0, 0, 0, 1); /* Preto */
+  }
 
-.parallax > use {
-  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
-}
-.parallax > use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 7s;
-}
-.parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-}
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 13s;
-}
-.parallax > use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
-}
+  .parallax > use:nth-child(2) {
+    animation-delay: -3s;
+    animation-duration: 10s;
+    fill: rgba(0, 0, 0, 0.7); /* Preto com opacidade */
+  }
+
+  .parallax > use:nth-child(3) {
+    animation-delay: -4s;
+    animation-duration: 13s;
+    fill: rgba(0, 0, 0, 0.5); /* Preto com opacidade */
+  }
+
+  .parallax > use:nth-child(4) {
+    animation-delay: -5s;
+    animation-duration: 20s;
+    fill: rgba(0, 0, 0, 0.3); /* Preto com opacidade */
+  }
 @keyframes move-forever {
   0% {
    transform: translate3d(-90px,0,0);
@@ -100,6 +99,50 @@ p {
 }
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
+  .header {
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+  }
+
+  .header a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .header a:hover {
+    text-decoration: underline;
+  }
+
+  .header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+
+  .header nav {
+    display: inline-block;
+  }
+
+  .header nav a {
+    display: inline-block;
+    padding: 10px 15px;
+  }
+
+  @media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+    }
+
+    .header nav a {
+      display: block;
+      margin: 5px 0;
+    }
+  }
   .waves {
     height:40px;
     min-height:40px;
