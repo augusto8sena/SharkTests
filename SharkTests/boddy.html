@@ -169,13 +169,13 @@
         }
 
         .human-body svg:hover {
-            fill: #ff0000;
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.8));
+            fill: #ff0000aa;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.716));
             transform: scale(1.05);
         }
 
         .human-body svg.active {
-            fill: #ff0000;
+            fill: #ff0000f6;
             animation: pulse 2s infinite;
         }
 
@@ -187,7 +187,7 @@
 
         @keyframes pulse {
             0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5)); }
-            50% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 1)); }
+            50% { filter: drop-shadow(0 0 20px rgb(255, 0, 0)); }
         }
 
         /* Posicionamento dos SVGs (mantendo o original) */
@@ -288,6 +288,7 @@
 
         .exercise-list {
             margin-top: 2rem;
+            margin-bottom: 80px;
         }
 
         .exercise-item {
@@ -418,12 +419,17 @@
         .add-button.added:hover {
             transform: none;
             box-shadow: none;
-        }
-
-        .workout-counter {
+        }        .workout-actions {
             position: fixed;
             top: 20px;
             right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+        }
+
+        .workout-counter {
             background: linear-gradient(45deg, #ff0000, #cc0000);
             color: white;
             padding: 15px 25px;
@@ -431,7 +437,6 @@
             font-weight: 600;
             font-size: 1.1rem;
             box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
-            z-index: 999;
             transition: all 0.3s ease;
         }
 
@@ -508,6 +513,27 @@
             max-width: 100%;
             height: auto;
             
+        }        .save-workout-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .save-workout-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+        }
+
+        .save-workout-button.active {
+            display: block;
         }
     </style>
 </head>
@@ -594,19 +620,23 @@
             <div id="area">
                 Área Selecionada: <span id="data">Nenhuma</span>
             </div>
+        </div>        <div class="workout-actions">
+            <div class="workout-counter">
+                🏋️ Treino: <span id="workoutCount">0</span> exercícios
+            </div>
+            <button class="save-workout-button" id="saveWorkoutButton" onclick="saveWorkout()">
+                💾 Salvar Treino
+            </button>
         </div>
 
-        <div class="workout-counter">
-            🏋️ Treino: <span id="workoutCount">0</span> exercícios
-        </div>
-
-        <div class="notification" id="notification"></div>
-
-        <div class="exercise-sidebar" id="exerciseSidebar">
+        <div class="notification" id="notification"></div><div class="exercise-sidebar" id="exerciseSidebar">
             <span class="close-sidebar" onclick="closeSidebar()">&times;</span>
             <h2 class="muscle-title" id="muscleTitle"></h2>
             <div class="exercise-list" id="exerciseList"></div>
+            <button class="save-workout-button active" id="saveWorkoutButton" onclick="saveWorkout()">Salvar Treino 💪</button>
         </div>
+
+        
     </div>
 
     <script>
@@ -872,6 +902,68 @@
                 closeSidebar();
             }
         });
+
+        // Função para salvar o treino
+        function saveWorkout() {
+            if (selectedExercises.length === 0) {
+                showNotification('Selecione pelo menos um exercício para salvar! ⚠️');
+                return;
+            }
+            
+            const workoutName = prompt('Digite um nome para o treino:', 'Meu Treino');
+            if (!workoutName) return;
+            
+            const workoutData = {
+                name: workoutName,
+                date: new Date().toLocaleDateString(),
+                exercises: selectedExercises.map(ex => ({
+                    name: ex.name,
+                    muscle: ex.muscle,
+                    sets: ex.sets,
+                    difficulty: ex.difficulty
+                }))
+            };
+            
+            // Salva no localStorage
+            let savedWorkouts = JSON.parse(localStorage.getItem('workouts') || '[]');
+            savedWorkouts.push(workoutData);
+            localStorage.setItem('workouts', JSON.stringify(savedWorkouts));
+            
+            showNotification(`Treino "${workoutName}" salvo com sucesso! 🎉`);
+            
+            // Limpa os exercícios selecionados
+            selectedExercises = [];
+            updateWorkoutCounter();
+            
+            // Atualiza os botões
+            document.querySelectorAll('.add-button').forEach(btn => {
+                btn.classList.remove('added');
+                btn.textContent = 'Adicionar ao Treino';
+            });
+        }
+
+        // Função para salvar o treino
+        function saveWorkout() {
+            if (selectedExercises.length === 0) {
+                alert('Nenhum exercício selecionado para salvar.');
+                return;
+            }
+            
+            const workoutName = prompt('Digite um nome para o treino:', 'Meu Treino');
+            if (!workoutName) return;
+            
+            const workoutData = {
+                name: workoutName,
+                exercises: selectedExercises
+            };
+            
+            // Aqui você pode implementar o salvamento em servidor ou localStorage
+            console.log('Treino salvo:', workoutData);
+            alert('Treino salvo com sucesso!');
+        }
+
+        // Adiciona evento de clique ao botão de salvar treino
+        document.getElementById('saveWorkoutButton').addEventListener('click', saveWorkout);
     </script>
 </body>
 </html>
