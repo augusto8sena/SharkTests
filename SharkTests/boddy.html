@@ -356,19 +356,27 @@
             display: flex;
             gap: 12px;
             margin-top: 15px;
-        }
-
-        .exercise-button {
-            padding: 12px 20px;
+        }        .exercise-button {
+            padding: 15px 25px;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .exercise-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
         .exercise-button::before {
@@ -381,63 +389,139 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
+            z-index: 1;
         }
 
         .exercise-button:hover::before {
             width: 300px;
             height: 300px;
-        }
-
-        .watch-button {
+        }        .watch-button {
             background: linear-gradient(45deg, #ff0000, #cc0000);
             color: white;
             flex: 1;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
         }
 
         .watch-button:hover {
             background: linear-gradient(45deg, #cc0000, #990000);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .watch-button:hover i {
+            transform: scale(1.2);
+        }
+
+        .watch-button:active {
+            transform: translateY(1px);
         }        .add-button {
             background: linear-gradient(45deg, #333333, #1a1a1a);
             color: white;
             flex: 1;
-            border: 1px solid #555;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .add-button:hover {
             background: linear-gradient(45deg, #555555, #333333);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        .add-button:hover i {
+            transform: scale(1.2) rotate(180deg);
+        }
+
+        .add-button:active {
+            transform: translateY(1px);
+        }
+
+        .add-button.adding {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        .add-button.adding i {
+            animation: spin 1s linear infinite;
         }        .add-button.added {
-            background: linear-gradient(45deg, #1a5928, #0f3318);
-            border-color: #2ecc71;
-            color: #2ecc71;
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
         }
 
         .add-button.added:hover {
-            transform: none;
-            box-shadow: none;
-        }        .workout-actions {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .add-button.added i {
+            transform: rotate(360deg);
+        }
+
+        .exercise-item {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }.workout-actions {
             position: fixed;
             top: 20px;
             right: 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
             z-index: 999;
         }
 
         .workout-counter {
             background: linear-gradient(45deg, #ff0000, #cc0000);
             color: white;
-            padding: 15px 25px;
-            border-radius: 25px;
+            padding: 20px 30px;
+            border-radius: 15px;
             font-weight: 600;
             font-size: 1.1rem;
-            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .workout-counter .counter-icon {
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .workout-counter .count-number {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 10px;
+            margin: 0 5px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .workout-counter:hover {
@@ -516,24 +600,105 @@
         }        .save-workout-button {
             background: linear-gradient(45deg, #2ecc71, #27ae60);
             color: white;
-            padding: 15px 30px;
-            border-radius: 25px;
+            padding: 20px 30px;
+            border-radius: 15px;
             font-weight: 600;
             font-size: 1.1rem;
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 20px rgba(46, 204, 113, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .save-workout-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .save-workout-button:hover::before {
+            left: 100%;
         }
 
         .save-workout-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .save-workout-button:active {
+            transform: translateY(1px);
+        }
+
+        .save-workout-button .button-icon {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        .save-workout-button:hover .button-icon {
+            transform: scale(1.2);
+        }
+
+        .save-workout-button.saving {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            pointer-events: none;
+        }
+
+        .save-workout-button.saving .button-icon {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .save-workout-button.active {
             display: block;
+        }        .save-workout-button.error {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .workout-counter, .save-workout-button {
+            transform-origin: center;
+            animation: fadeInDown 0.5s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -620,12 +785,13 @@
             <div id="area">
                 Área Selecionada: <span id="data">Nenhuma</span>
             </div>
-        </div>        <div class="workout-actions">
-            <div class="workout-counter">
-                🏋️ Treino: <span id="workoutCount">0</span> exercícios
+        </div>        <div class="workout-actions">            <div class="workout-counter">
+                <i class="fas fa-dumbbell counter-icon"></i>
+                <span>Treino: <span id="workoutCount" class="count-number">0</span> exercícios</span>
             </div>
             <button class="save-workout-button" id="saveWorkoutButton" onclick="saveWorkout()">
-                💾 Salvar Treino
+                <i class="fas fa-save button-icon"></i>
+                <span>SALVAR TREINO</span>
             </button>
         </div>
 
@@ -633,7 +799,7 @@
             <span class="close-sidebar" onclick="closeSidebar()">&times;</span>
             <h2 class="muscle-title" id="muscleTitle"></h2>
             <div class="exercise-list" id="exerciseList"></div>
-            <button class="save-workout-button active" id="saveWorkoutButton" onclick="saveWorkout()">Salvar Treino 💪</button>
+            <button class="save-workout-button active" id="saveWorkoutButton" onclick="saveWorkout()">SALVAR TREINO</button>
         </div>
 
         
@@ -799,10 +965,13 @@
                             <span class="meta-item"><b>Séries:</b> ${ex.sets}</span>
                             <span class="meta-item"><b>Dificuldade:</b> ${ex.difficulty}</span>
                         </div>
-                        <div class="exercise-buttons">
-                            <button class="exercise-button watch-button" onclick="window.open('${ex.video}','_blank')">Ver Vídeo</button>
+                        <div class="exercise-buttons">                            <button class="exercise-button watch-button" onclick="window.open('${ex.video}','_blank')">
+                                <i class="fas fa-play-circle"></i>
+                                <span>Ver Vídeo</span>
+                            </button>
                             <button class="exercise-button add-button ${isSelected ? 'added' : ''}" onclick="addToWorkout('${muscle}', '${ex.name}', this)">
-                                ${isSelected ? 'Adicionado' : 'Adicionar ao Treino'}
+                                <i class="fas ${isSelected ? 'fa-check-circle' : 'fa-plus-circle'}"></i>
+                                <span>${isSelected ? 'Adicionado' : 'Adicionar ao Treino'}</span>
                             </button>
                         </div>
                     `;
@@ -901,17 +1070,23 @@
                 !muscleChip) {
                 closeSidebar();
             }
-        });
-
-        // Função para salvar o treino
+        });        // Função para salvar o treino
         function saveWorkout() {
+            const saveButton = document.getElementById('saveWorkoutButton');
+            
             if (selectedExercises.length === 0) {
+                saveButton.classList.add('error');
+                setTimeout(() => saveButton.classList.remove('error'), 500);
                 showNotification('Selecione pelo menos um exercício para salvar! ⚠️');
                 return;
             }
             
             const workoutName = prompt('Digite um nome para o treino:', 'Meu Treino');
             if (!workoutName) return;
+            
+            // Adiciona efeito de loading
+            saveButton.classList.add('saving');
+            saveButton.innerHTML = '<i class="fas fa-spinner button-icon"></i><span>Salvando...</span>';
             
             const workoutData = {
                 name: workoutName,
@@ -928,18 +1103,29 @@
             let savedWorkouts = JSON.parse(localStorage.getItem('workouts') || '[]');
             savedWorkouts.push(workoutData);
             localStorage.setItem('workouts', JSON.stringify(savedWorkouts));
-            
-            showNotification(`Treino "${workoutName}" salvo com sucesso! 🎉`);
-            
-            // Limpa os exercícios selecionados
-            selectedExercises = [];
-            updateWorkoutCounter();
-            
-            // Atualiza os botões
-            document.querySelectorAll('.add-button').forEach(btn => {
-                btn.classList.remove('added');
-                btn.textContent = 'Adicionar ao Treino';
-            });
+              // Simula um pequeno delay para mostrar o loading
+            setTimeout(() => {
+                // Remove efeito de loading
+                saveButton.classList.remove('saving');
+                saveButton.innerHTML = '<i class="fas fa-check button-icon"></i><span>Treino Salvo!</span>';
+                
+                showNotification(`Treino "${workoutName}" salvo com sucesso! 🎉`);
+                
+                // Limpa os exercícios selecionados
+                selectedExercises = [];
+                updateWorkoutCounter();
+                
+                // Atualiza os botões
+                document.querySelectorAll('.add-button').forEach(btn => {
+                    btn.classList.remove('added');
+                    btn.textContent = 'Adicionar ao Treino';
+                });
+                
+                // Restaura o texto original do botão após 2 segundos
+                setTimeout(() => {
+                    saveButton.innerHTML = '<i class="fas fa-save button-icon"></i><span>Salvar Treino</span>';
+                }, 2000);
+            }, 1000);
         }
 
         // Função para salvar o treino
