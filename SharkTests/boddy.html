@@ -12,21 +12,22 @@
         }
 
         .main-menu {
-            background: #232323;
+            background: linear-gradient(180deg, #232323 0%, #1a1a1a 100%);
             position: fixed;
             top: 0;
             bottom: 0;
             height: 100%;
             left: 0;
-            width: 55px;
+            width: 70px;
             overflow: hidden;
-            transition: width 0.2s linear;
-            box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.15);
             z-index: 1002;
         }
 
         .main-menu:hover {
-            width: 250px;
+            width: 280px;
+            box-shadow: 2px 0 25px rgba(255, 0, 0, 0.15);
         }
 
         .main-menu ul {
@@ -46,26 +47,26 @@
             width: 100%;
             display: table;
             color: #c5c5c5;
-            font-size: 14px;
+            font-size: 16px;
             text-decoration: none;
-            transition: all 0.14s linear;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'Strait', sans-serif;
-            border-top: 1px solid #4e4e4e;
-        }
-
-        .main-menu li a:hover {
-            color: #000000;
-            background-color: #ff0000;
+            border-top: 1px solid rgba(78, 78, 78, 0.2);
+            padding: 10px 0;
+            height: 55px;
+            overflow: hidden;
         }
 
         .main-menu .nav-icon {
             position: relative;
             display: table-cell;
-            width: 55px;
-            height: 36px;
+            width: 70px;
+            height: 55px;
             text-align: center;
             vertical-align: middle;
-            font-size: 18px;
+            font-size: 26px;
+            padding: 12px 0;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .main-menu .nav-text {
@@ -74,17 +75,44 @@
             vertical-align: middle;
             width: 190px;
             font-family: 'Titillium Web', sans-serif;
+            font-size: 16px;
+            padding-left: 15px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-menu:hover .nav-text {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .main-menu li:hover > a {
             color: #ffffff;
-            background-color: #ff00009d;
-            transition: all 0.2s linear;
-            transform: translateX(5px);
+            background: linear-gradient(45deg, #323232 0%, #2b2b2b 100%);
+            transform: translateX(8px);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
         }
 
-        .main-menu li:first-child a {
-            border-top: none;
+        .main-menu li:hover .nav-icon {
+            transform: scale(1.15);
+            text-shadow: 0 0 10px rgba(175, 175, 175, 0.5);
+        }
+
+        .main-menu li a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #ff0000;
+            transform: scaleY(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-menu li:hover a::before {
+            transform: scaleY(1);
         }
 
         .logo-container {
@@ -131,12 +159,12 @@
         .header h1 {
             font-size: 3rem;
             font-weight: 700;
-            background: linear-gradient(45deg, #ff0000, #cc0000, #ff3333);
+            background: linear-gradient(45deg, #ffffff, #ffffff, #ffffff);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
@@ -278,11 +306,11 @@
         .muscle-title {
             font-size: 2rem;
             font-weight: 700;
-            color: #ff0000;
+            color: #777777;
             margin-bottom: 1.5rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            border-bottom: 2px solid #ff0000;
+            border-bottom: 2px solid #4c4c4c;
             padding-bottom: 0.5rem;
         }
 
@@ -445,16 +473,16 @@
         .add-button.adding i {
             animation: spin 1s linear infinite;
         }        .add-button.added {
-            background: linear-gradient(45deg, #27ae60, #2ecc71);
+            background: linear-gradient(45deg, #414141, #2a2a2a);
             border-color: rgba(255, 255, 255, 0.2);
             color: white;
             box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
         }
 
         .add-button.added:hover {
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            background: linear-gradient(45deg, #232323, #27ae60);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.4);
+            box-shadow: 0 8px 20px rgba(46, 204, 112, 0.226);
         }
 
         .add-button.added i {
@@ -598,7 +626,7 @@
             height: auto;
             
         }        .save-workout-button {
-            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            background: linear-gradient(45deg, #2d2d2d, #2f2f2d);
             color: white;
             padding: 20px 30px;
             border-radius: 15px;
@@ -606,7 +634,7 @@
             font-size: 1.1rem;
             border: none;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 10px 25px rgba(30, 30, 30, 0.3);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             width: 100%;
             display: flex;
@@ -641,7 +669,7 @@
 
         .save-workout-button:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(46, 204, 113, 0.4);
+            box-shadow: 0 15px 30px rgba(33, 33, 33, 0.4);
         }
 
         .save-workout-button:active {
@@ -854,7 +882,30 @@
             transform: rotate(90deg);
         }
 
-        // ...existing code...
+        .main-menu li a.active {
+            background: linear-gradient(45deg, #373737 0%, #292929 100%);
+            color: #ffffff;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-menu li a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #ff0303;
+            transform: scaleY(1);
+        }
+
+        .main-menu li a.active .nav-icon {
+            transform: scale(1.15);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        // 
     </style>
 </head>
 <body>    <nav class="main-menu">
@@ -873,9 +924,8 @@
                     <i class="fa fa-info-circle nav-icon"></i>
                     <span class="nav-text">Sobre</span>
                 </a>
-            </li>
-            <li>
-                <a href="#gerador">
+            </li>            <li>
+                <a href="#gerador" class="active">
                     <i class="fa fa-cogs nav-icon"></i>
                     <span class="nav-text">Gerador</span>
                 </a>
@@ -916,6 +966,8 @@
     <div class="container">
         <div class="main-content">
             <div class="header">
+                <h1>Gerador de Treinos</h1>
+                <p>Selecione os músculos e veja os exercícios recomendados.</p>
             </div>
 
             <div class="muscle-selector">
@@ -1252,30 +1304,36 @@
             }
         });document.querySelectorAll('.muscle-chip').forEach(chip => {
             chip.addEventListener('click', function(e) {
-                // Previne a propagação do evento para evitar que o documento feche a sidebar
                 e.stopPropagation();
                 e.preventDefault();
                 
-                document.querySelectorAll('.muscle-chip').forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
                 const muscle = this.getAttribute('data-muscle');
+                const sidebar = document.getElementById('exerciseSidebar');
                 
-                // Atualiza o SVG correspondente
-                document.querySelectorAll('.human-body svg').forEach(s => {
-                    if(s.getAttribute('data-position') === muscle) {
-                        s.classList.add('active');
-                    } else {
-                        s.classList.remove('active');
-                    }
-                });
+                // If clicking on already selected muscle and sidebar is open, close it
+                if (this.classList.contains('active') && sidebar.classList.contains('active')) {
+                    closeSidebar();
+                    return;
+                }
+                
+                // Remove active class from all chips and SVGs
+                document.querySelectorAll('.muscle-chip').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.human-body svg').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked chip and corresponding SVG
+                this.classList.add('active');
+                const svg = document.querySelector(`.human-body svg[data-position="${muscle}"]`);
+                if (svg) {
+                    svg.classList.add('active');
+                }
                 
                 document.getElementById('data').textContent = muscleName(muscle);
                 
-                // Força a abertura da sidebar
-                const sidebar = document.getElementById('exerciseSidebar');
-                if (!sidebar.classList.contains('active')) {
+                // Close and reopen sidebar to ensure clean state
+                sidebar.classList.remove('active');
+                setTimeout(() => {
                     openSidebar(muscle);
-                }
+                }, 50);
             });
         });
         // Fecha sidebar ao clicar fora (opcional)        // Fecha sidebar ao clicar fora
