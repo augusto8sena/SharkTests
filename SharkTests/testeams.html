@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - AMS Technology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Hero Section */
+        .hero {
+            padding: 40px 0 30px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(25, 55, 109, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+            min-height: 25vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(25, 55, 109, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -30%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(25, 55, 109, 0.05) 0%, transparent 60%);
+            animation: rotate 30s linear infinite reverse;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #19376D;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            text-align: center;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            text-align: center;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Produtos em Destaque */
+        .featured-products {
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(25, 55, 109, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 450px;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #19376D, #2D5A8A);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(25, 55, 109, 0.15);
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-code {
+            background: linear-gradient(135deg, #19376D, #2D5A8A);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .product-card h4 {
+            color: #19376D;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .product-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .product-specs {
+            list-style: none;
+            margin-bottom: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .product-specs li {
+            color: #555;
+            font-size: 0.9rem;
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .product-specs li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #19376D;
+            font-weight: bold;
+        }
+
+        .product-content {
+            flex: 1;
+        }
+
+        .product-footer {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(25, 55, 109, 0.1);
+        }
+
+        .btn-product {
+            background: linear-gradient(135deg, #19376D, #2D5A8A);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-product:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(25, 55, 109, 0.3);
+        }
+
+        /* Catalog Section */
+        .catalog {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #19376D;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .catalog-item {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(25, 55, 109, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .catalog-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #19376D, #2D5A8A);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(25, 55, 109, 0.15);
+        }
+
+        .catalog-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .catalog-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #19376D, #2D5A8A);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .catalog-item:hover .catalog-icon {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(25, 55, 109, 0.3);
+        }
+
+        .catalog-item h3 {
+            font-size: 1.5rem;
+            color: #19376D;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .catalog-item p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .catalog-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .catalog-features li {
+            padding: 8px 0;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .catalog-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #19376D;
+            font-weight: bold;
+        }
+
+        .btn-catalog {
+            background: linear-gradient(135deg, #19376D, #2D5A8A);
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-catalog:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(25, 55, 109, 0.3);
+            background: linear-gradient(135deg, #2D5A8A, #19376D);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, rgba(25, 55, 109, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            color: #19376D;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(25, 55, 109, 0.1);
+        }
+
+        .contact-item h4 {
+            color: #19376D;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .contact-item p {
+            color: #666;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 30px 0 20px;
+            }
+
+            .catalog-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .contact h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero {
+                padding: 25px 0 15px;
+            }
+
+            .catalog-item {
+                padding: 30px 20px;
+            }
+
+            .catalog {
+                padding: 60px 0;
+            }
+
+            .contact {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>AMS Technology</h1>
+                <p>Catálogo de Produtos e Serviços - Manutenção Industrial, Peças de Reposição e Assistência Técnica Especializada</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produtos em Destaque -->
+    <section class="featured-products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Produtos em Destaque</h2>
+                <p>Conheça alguns dos nossos principais produtos industriais</p>
+            </div>
+
+            <div class="featured-grid">
+                <!-- Produto 1 -->
+                <div class="product-card">
+                    <div class="product-content">
+                        <div class="product-code">CMD-001</div>
+                        <h4>Centro de Usinagem CNC Horizontal</h4>
+                        <p>Centro de usinagem de alta precisão para produção em série com sistema de troca automática de ferramentas.</p>
+                        <ul class="product-specs">
+                            <li>Mesa: 500 x 400mm</li>
+                            <li>Curso X/Y/Z: 560/410/500mm</li>
+                            <li>Velocidade: 12.000 RPM</li>
+                            <li>Precisão: ±0.005mm</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <a href="#" class="btn-product">Veja Mais</a>
+                    </div>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="product-card">
+                    <div class="product-content">
+                        <div class="product-code">CMD-002</div>
+                        <h4>Painel de Comando Industrial</h4>
+                        <p>Painel elétrico de comando com IHM touchscreen para controle de processos industriais automatizados.</p>
+                        <ul class="product-specs">
+                            <li>Tensão: 220/380V</li>
+                            <li>IHM: 10" Touchscreen</li>
+                            <li>Proteção: IP65</li>
+                            <li>Comunicação: Ethernet/RS485</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <a href="#" class="btn-product">Veja Mais</a>
+                    </div>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="product-card">
+                    <div class="product-content">
+                        <div class="product-code">CMD-003</div>
+                        <h4>Kit Peças Servo Motor</h4>
+                        <p>Kit completo de peças de reposição para manutenção preventiva de servo motores industriais.</p>
+                        <ul class="product-specs">
+                            <li>Rolamentos de precisão</li>
+                            <li>Encoder incremental</li>
+                            <li>Vedações originais</li>
+                            <li>Garantia: 12 meses</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <a href="#" class="btn-product">Veja Mais</a>
+                    </div>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="product-card">
+                    <div class="product-content">
+                        <div class="product-code">CMD-004</div>
+                        <h4>Fuso de Esferas Retificado</h4>
+                        <p>Fuso de esferas retificado para centros de usinagem, com alta precisão e durabilidade.</p>
+                        <ul class="product-specs">
+                            <li>Diâmetro: 25mm</li>
+                            <li>Passo: 5mm</li>
+                            <li>Comprimento: 500mm</li>
+                            <li>Classe: C3</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <a href="#" class="btn-product">Veja Mais</a>
+                    </div>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="product-card">
+                    <div class="product-content">
+                        <div class="product-code">CMD-005</div>
+                        <h4>Inversor de Frequência</h4>
+                        <p>Inversor de frequência trifásico para controle de velocidade de motores em aplicações industriais.</p>
+                        <ul class="product-specs">
+                            <li>Potência: 7.5kW</li>
+                            <li>Entrada: 380V Trifásico</li>
+                            <li>Saída: 0-380V Variável</li>
+                            <li>Eficiência: >95%</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <a href="#" class="btn-product">Veja Mais</a>
+                    </div>
+                </div>
+
+                <!-- Produto 6 -->
+                <div class="product-card">
+                    <div class="product-content">
+                        <div class="product-code">CMD-006</div>
+                        <h4>Guia Linear de Precisão</h4>
+                        <p>Sistema de guia linear de alta precisão para aplicações que exigem movimento linear suave e preciso.</p>
+                        <ul class="product-specs">
+                            <li>Comprimento: 1000mm</li>
+                            <li>Carga: 15kN</li>
+                            <li>Precisão: ±0.01mm</li>
+                            <li>Material: Aço temperado</li>
+                        </ul>
+                    </div>
+                    <div class="product-footer">
+                        <a href="#" class="btn-product">Veja Mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="catalog">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nossos Produtos e Serviços</h2>
+                <p>Soluções completas para sua indústria com qualidade e tecnologia de ponta</p>
+            </div>
+
+            <div class="catalog-grid">
+                <!-- Centros de Usinagem -->
+                <div class="catalog-item">
+                    <div class="catalog-icon">⚙️</div>
+                    <h3>Centros de Usinagem</h3>
+                    <p>Equipamentos de alta precisão para usinagem industrial com tecnologia avançada e máxima eficiência.</p>
+                    <ul class="catalog-features">
+                        <li>Centros de usinagem CNC</li>
+                        <li>Equipamentos de alta precisão</li>
+                        <li>Tecnologia de ponta</li>
+                        <li>Suporte técnico especializado</li>
+                        <li>Instalação e configuração</li>
+                    </ul>
+                    <a href="#" class="btn-catalog">Veja Mais</a>
+                </div>
+
+                <!-- Peças de Reposição -->
+                <div class="catalog-item">
+                    <div class="catalog-icon">🔧</div>
+                    <h3>Peças de Reposição</h3>
+                    <p>Amplo estoque de peças originais e compatíveis para manutenção e reparo de equipamentos industriais.</p>
+                    <ul class="catalog-features">
+                        <li>Peças originais certificadas</li>
+                        <li>Componentes compatíveis</li>
+                        <li>Estoque permanente</li>
+                        <li>Entrega rápida</li>
+                        <li>Garantia de qualidade</li>
+                    </ul>
+                    <a href="#" class="btn-catalog">Veja Mais</a>
+                </div>
+
+                <!-- Painéis Elétricos -->
+                <div class="catalog-item">
+                    <div class="catalog-icon">⚡</div>
+                    <h3>Painéis Elétricos</h3>
+                    <p>Desenvolvimento e fabricação de painéis elétricos industriais personalizados para suas necessidades.</p>
+                    <ul class="catalog-features">
+                        <li>Painéis customizados</li>
+                        <li>Projeto e fabricação</li>
+                        <li>Componentes de qualidade</li>
+                        <li>Testes e validação</li>
+                        <li>Assistência pós-venda</li>
+                    </ul>
+                    <a href="#" class="btn-catalog">Veja Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <h2>Entre em Contato</h2>
+            <p>Nossa equipe está pronta para atender suas necessidades industriais com excelência e agilidade</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Telefone</h4>
+                    <p>(11) 9999-9999</p>
+                </div>
+                <div class="contact-item">
+                    <h4>E-mail</h4>
+                    <p>contato@amstechnology.com.br</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Horário</h4>
+                    <p>Seg-Sex: 8h às 18h</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Reinicia a animação quando a página é carregada
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero h1');
+            const heroText = document.querySelector('.hero p');
+            
+            // Remove e readiciona as classes de animação para reiniciar
+            heroTitle.style.animation = 'none';
+            heroText.style.animation = 'none';
+            
+            setTimeout(() => {
+                heroTitle.style.animation = 'fadeInUp 1s ease forwards';
+                heroText.style.animation = 'fadeInUp 1s ease 0.3s forwards';
+            }, 100);
+        });
+
+        // Adiciona movimento extra ao fundo baseado na posição do mouse
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            hero.style.setProperty('--mouse-x', x);
+            hero.style.setProperty('--mouse-y', y);
+        });
+
+        // Animação dos cards do catálogo e produtos
+        const observerOptions = {
+            threshold: 0.05,
+            rootMargin: '0px 0px -20px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);        // Observa todos os itens do catálogo e produtos
+        document.querySelectorAll('.catalog-item, .product-card').forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `opacity 0.3s ease ${index * 0.05}s, transform 0.3s ease ${index * 0.05}s`;
+            observer.observe(item);
+        });
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas Frequentes - AMS Technology</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section (Header) */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(25, 55, 109, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(25, 55, 109, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -30%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(25, 55, 109, 0.05) 0%, transparent 60%);
+            animation: rotate 30s linear infinite reverse;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #19376D;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: #ffffff;
+        }
+
+        .faq-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-title h2 {
+            font-size: 2.5rem;
+            color: #19376D;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .faq-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-category {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: #19376D;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid rgba(25, 55, 109, 0.1);
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border: 2px solid rgba(25, 55, 109, 0.1);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(25, 55, 109, 0.3);
+            box-shadow: 0 5px 15px rgba(25, 55, 109, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #19376D;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(25, 55, 109, 0.05);
+        }
+
+        .faq-question.active {
+            background: rgba(25, 55, 109, 0.08);
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            color: #19376D;
+        }
+
+        .faq-icon.active {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: rgba(25, 55, 109, 0.02);
+        }
+
+        .faq-answer.active {
+            max-height: 300px;
+            padding: 0 25px 25px 25px;
+        }
+
+        .faq-answer p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(25, 55, 109, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+            text-align: center;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            color: #19376D;
+            margin-bottom: 1rem;
+        }
+
+        .contact-text {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(25, 55, 109, 0.1);
+            min-width: 200px;
+        }
+
+        .contact-item h4 {
+            color: #19376D;
+            margin-bottom: 10px;
+        }
+
+        .contact-item p {
+            color: #666;
+        }
+
+        /* Equipe Técnica Section */
+        .team-section {
+            padding: 60px 0;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .team-title {
+            font-size: 2rem;
+            color: #19376D;
+            margin-bottom: 2rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(25, 55, 109, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(25, 55, 109, 0.1);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(25, 55, 109, 0.15);
+        }
+
+        .team-member h4 {
+            color: #19376D;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .role {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .team-contact a {
+            color: #19376D;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .team-contact a:hover {
+            color: #2d5aa0;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .faq-title h2 {
+                font-size: 2rem;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+
+            .faq-question {
+                padding: 20px;
+                font-size: 1rem;
+            }
+
+            .faq-answer.active {
+                padding: 0 20px 20px 20px;
+            }
+
+            .contact-info {
+                gap: 30px;
+            }
+
+            .contact-item {
+                min-width: 280px;
+            }
+
+            .team-grid {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .faq-section {
+                padding: 60px 0;
+            }
+
+            .faq-question {
+                padding: 15px;
+            }
+
+            .faq-answer.active {
+                padding: 0 15px 15px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>AMS Technology</h1>
+                <p>Perguntas Frequentes - Encontre as respostas que você precisa sobre nossos serviços de manutenção industrial</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-title">
+                <h2>Perguntas Frequentes</h2>
+                <p>Tire suas dúvidas sobre nossos serviços, peças, garantia e muito mais</p>
+            </div>
+
+            <div class="faq-container">
+                <!-- Venda de Peças -->
+                <div class="faq-category">
+                    <h3 class="category-title">🔧 Venda de Peças</h3>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Vocês trabalham com peças originais ou genéricas?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Trabalhamos prioritariamente com peças originais dos fabricantes, garantindo máxima qualidade e compatibilidade. Também oferecemos alternativas de alta qualidade quando autorizado pelo cliente, sempre informando claramente sobre a origem da peça.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Qual o prazo de entrega das peças?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>O prazo varia conforme disponibilidade em estoque. Peças em estoque: 24-48h. Peças sob encomenda: 7-15 dias úteis. Para equipamentos importados ou peças especiais, o prazo pode ser de 30-60 dias. Sempre informamos o prazo exato no momento da cotação.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Como faço para solicitar uma cotação de peças?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Entre em contato conosco enviando: modelo do equipamento, número da peça (se disponível), quantidade necessária e fotos da peça danificada. Nossa equipe técnica analisará e enviará a cotação em até 24 horas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assistência Técnica -->
+                <div class="faq-category">
+                    <h3 class="category-title">🛠️ Assistência Técnica</h3>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Vocês atendem em qual região?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Atendemos em todo território nacional. Para atendimentos locais (região metropolitana), nossos técnicos podem se deslocar no mesmo dia. Para outras regiões, organizamos visitas programadas ou oferecemos suporte remoto quando possível.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Qual o tempo de resposta para chamados de emergência?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Para chamados de emergência, nosso tempo de resposta é de até 4 horas durante horário comercial e até 8 horas fora do horário comercial. Temos plantão 24h para clientes com contrato de manutenção preventiva.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Vocês fazem manutenção preventiva?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim! Oferecemos planos completos de manutenção preventiva personalizados conforme suas necessidades. Incluem inspeções periódicas, lubrificação, ajustes e relatórios detalhados. Isso reduz paradas não programadas em até 80%.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Garantia -->
+                <div class="faq-category">
+                    <h3 class="category-title">🛡️ Garantia</h3>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Qual a garantia dos serviços prestados?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Todos os nossos serviços têm garantia de 90 dias. Para reparos complexos ou reformas, a garantia pode ser estendida para até 6 meses. A garantia cobre defeitos de execução e funcionamento inadequado do serviço realizado.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>As peças vendidas têm garantia?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim! Peças originais: garantia do fabricante (normalmente 12 meses). Peças alternativas: garantia de 6 meses. A garantia cobre defeitos de fabricação e funcionamento inadequado quando instaladas corretamente por nossa equipe técnica.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>O que não está coberto pela garantia?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>A garantia não cobre: desgaste natural, mau uso do equipamento, instalação por terceiros, danos por sobrecarga elétrica, oxidação por ambiente inadequado, e modificações não autorizadas. Sempre orientamos sobre uso correto após o serviço.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Qualidade -->
+                <div class="faq-category">
+                    <h3 class="category-title">⭐ Qualidade</h3>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Quais certificações a AMS Technology possui?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Somos certificados ISO 9001:2015 para gestão da qualidade e possuímos certificações específicas dos principais fabricantes de equipamentos industriais. Nossos técnicos passam por treinamentos regulares e são certificados pelos fabricantes.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Como garantem a qualidade dos serviços?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Seguimos procedimentos rigorosos: diagnóstico detalhado, uso de ferramentas calibradas, testes funcionais completos, relatório fotográfico do serviço e check-list de qualidade. Todo serviço passa por supervisão técnica antes da entrega.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Fornecem relatórios dos serviços executados?</span>
+                            <span class="faq-icon">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sim! Todos os serviços incluem relatório completo com: diagnóstico inicial, procedimentos executados, peças substituídas, fotos antes/depois, recomendações de manutenção e certificado de teste funcional. Tudo documentado digitalmente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="team-title">Nossa Equipe Técnica</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h4>Clayton Pereira</h4>
+                    <p class="role">Técnico Especializado</p>
+                    <div class="team-contact">
+                        <a href="https://www.linkedin.com/in/clayton-pereira" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                            LinkedIn
+                        </a>
+                        <a href="tel:+5511999999999">
+                            <i class="fas fa-phone"></i>
+                            (11) 99999-9999
+                        </a>
+                        <a href="mailto:clayton@amstechnology.com.br">
+                            <i class="fas fa-envelope"></i>
+                            clayton@amstechnology.com.br
+                        </a>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <h4>Augusto Sena</h4>
+                    <p class="role">Auxiliar Técnico</p>
+                    <div class="team-contact">
+                        <a href="https://www.linkedin.com/in/augusto-sena" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                            LinkedIn
+                        </a>
+                        <a href="tel:+5511988888888">
+                            <i class="fas fa-phone"></i>
+                            (11) 98888-8888
+                        </a>
+                        <a href="mailto:augusto@amstechnology.com.br">
+                            <i class="fas fa-envelope"></i>
+                            augusto@amstechnology.com.br
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <h3 class="contact-title">Não encontrou sua resposta?</h3>
+            <p class="contact-text">Entre em contato conosco! Nossa equipe está pronta para ajudar.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>📞 Telefone</h4>
+                    <p>(11) 9999-9999</p>
+                </div>
+                <div class="contact-item">
+                    <h4>📧 E-mail</h4>
+                    <p>contato@amstechnology.com.br</p>
+                </div>
+                <div class="contact-item">
+                    <h4>🕒 Horário</h4>
+                    <p>Seg-Sex: 8h às 18h</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="team-title">
+                <h2>Conheça nossa Equipe Técnica</h2>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <h4>João Silva</h4>
+                    <div class="role">Técnico em Manutenção</div>
+                    <div class="team-contact">
+                        <a href="tel:+5511999999999"><i class="fas fa-phone"></i> (11) 9999-9999</a>
+                        <a href="mailto:joao.silva@amstechnology.com.br"><i class="fas fa-envelope"></i> joao.silva@amstechnology.com.br</a>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <h4>Maria Oliveira</h4>
+                    <div class="role">Engenheira de Aplicação</div>
+                    <div class="team-contact">
+                        <a href="tel:+5511988888888"><i class="fas fa-phone"></i> (11) 9888-8888</a>
+                        <a href="mailto:maria.oliveira@amstechnology.com.br"><i class="fas fa-envelope"></i> maria.oliveira@amstechnology.com.br</a>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <h4>Carlos Pereira</h4>
+                    <div class="role">Coordenador Técnico</div>
+                    <div class="team-contact">
+                        <a href="tel:+5511977777777"><i class="fas fa-phone"></i> (11) 9777-7777</a>
+                        <a href="mailto:carlos.pereira@amstechnology.com.br"><i class="fas fa-envelope"></i> carlos.pereira@amstechnology.com.br</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Reinicia a animação do hero quando a página é carregada
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero h1');
+            const heroText = document.querySelector('.hero p');
+            
+            heroTitle.style.animation = 'none';
+            heroText.style.animation = 'none';
+            
+            setTimeout(() => {
+                heroTitle.style.animation = 'fadeInUp 1s ease forwards';
+                heroText.style.animation = 'fadeInUp 1s ease 0.3s forwards';
+            }, 100);
+        });
+
+        // Funcionalidade do FAQ (expandir/contrair)
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const icon = question.querySelector('.faq-icon');
+                
+                // Remove active de outros itens da mesma categoria
+                const category = faqItem.closest('.faq-category');
+                category.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem) {
+                        item.querySelector('.faq-answer').classList.remove('active');
+                        item.querySelector('.faq-question').classList.remove('active');
+                        item.querySelector('.faq-icon').classList.remove('active');
+                    }
+                });
+                
+                // Toggle do item atual
+                answer.classList.toggle('active');
+                question.classList.toggle('active');
+                icon.classList.toggle('active');
+            });
+        });
+
+        // Movimento do fundo baseado no mouse
+        document.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            hero.style.setProperty('--mouse-x', x);
+            hero.style.setProperty('--mouse-y', y);
+        });
+    </script>
+</body>
+</html>
