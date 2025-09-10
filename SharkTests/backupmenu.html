@@ -10,9 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: "Open Sans", Arial, sans-serif;
-            
         }
-
         .main-menu {
             background: #232323;
             position: fixed;
@@ -25,23 +23,19 @@
             transition: width 0.2s linear;
             box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
         }
-
         .main-menu:hover {
             width: 250px;
         }
-
         .main-menu ul {
             margin: 7px 0;
             padding: 0;
             list-style: none;
         }
-
         .main-menu li {
             position: relative;
             display: block;
             width: 250px;
         }
-
         .main-menu li a {
             position: relative;
             width: 100%;
@@ -53,12 +47,10 @@
             font-family: 'Strait', sans-serif;
             border-top: 1px solid #4e4e4e;
         }
-
         .main-menu li a:hover {
             color: #000000;
             background-color: #ff0000;
         }
-
         .main-menu .nav-icon {
             position: relative;
             display: table-cell;
@@ -68,7 +60,6 @@
             vertical-align: middle;
             font-size: 18px;
         }
-
         .main-menu .nav-text {
             position: relative;
             display: table-cell;
@@ -76,26 +67,22 @@
             width: 190px;
             font-family: 'Titillium Web', sans-serif;
         }
-
         .main-menu li:hover > a {
             color: #ffffff;
             background-color: #ff00009d;
             transition: all 0.2s linear;
             transform: translateX(5px);
         }
-
         .main-menu li:first-child a {
             border-top: none;
         }
-
         .logo-container {
-            height: 100px; /* Ajuste conforme necessário */
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2px;
         }
-
         .logo-container img {
             max-width: 100%;
             max-height: 120px;
@@ -134,7 +121,7 @@
             </li>
             <li>
                 <a href="#meus-treinos">
-                    <i class="fa fa-dumbbell nav-icon"></i>
+                    <i class="fa fa-running nav-icon"></i>
                     <span class="nav-text">Meus Treinos</span>
                 </a>
             </li>
@@ -152,13 +139,26 @@
             </li>
             <li>
                 <a href="#academias-proximas">
-                    <i class="fa fa-map-marker-alt nav-icon"></i>
+                    <i class="fa fa-map-marker nav-icon"></i>
                     <span class="nav-text">Academias Próximas</span>
                 </a>
             </li>
-
-            
         </ul>
     </nav>
 </body>
 </html>
+<!-- Nenhum código precisa ser adicionado aqui. 
+Para garantir que todos os ícones e textos do menu lateral estejam sempre visíveis, ajuste o CSS da barra lateral. 
+Remova ou aumente o valor de `height` em `.main-menu` e verifique se não há overflow escondendo itens. 
+Exemplo de ajuste: -->
+
+<style>
+    .main-menu {
+        height: auto;
+        min-height: 100vh;
+    }
+    .main-menu ul {
+        overflow-y: auto;
+        max-height: calc(100vh - 120px); /* 120px para logo */
+    }
+</style>
