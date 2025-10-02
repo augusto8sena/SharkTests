@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFlix - Sua Academia Digital</title>
+    <style>
+        :root {
+            --primary-color: #141414;
+            --secondary-color: #e50914;
+            --text-color: #ffffff;
+            --card-bg-color: #222;
+            --hover-color: #333;
+            --nav-bg-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: var(--nav-bg-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .logo {
+            color: var(--secondary-color);
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--secondary-color);
+            background-color: rgba(229, 9, 20, 0.1);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-icon, .user-icon {
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .hero {
+            height: 80vh;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/api/placeholder/1600/900') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            padding: 0 50px;
+            margin-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero-description {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #c70811;
+        }
+        
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            margin: 40px 0 20px 50px;
+            font-weight: 500;
+        }
+        
+        .exercises-row {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 50px;
+            gap: 15px;
+            scrollbar-width: none;
+        }
+        
+        .exercises-row::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .exercise-card {
+            min-width: 250px;
+            height: 170px;
+            background-color: var(--card-bg-color);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .exercise-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+        }
+        
+        .card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-title {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-icon {
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .action-icon:hover {
+            color: var(--secondary-color);
+        }
+        
+        .action-icon.active {
+            color: var(--secondary-color);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg-color);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
+        }
+        
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .modal-description {
+            line-height: 1.6;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip {
+            position: absolute;
+            background-color: var(--card-bg-color);
+            color: var(--text-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 3000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 0 20px;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                margin: 30px 0 15px 20px;
+            }
+            
+            .exercises-row {
+                padding: 15px 20px;
+            }
+            
+            .exercise-card {
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">FitFlix</div>
+        <div class="nav-links">
+            <a href="#" class="active">Peito</a>
+            <a href="#">Costas</a>
+            <a href="#">Pernas</a>
+            <a href="#">Braços</a>
+            <a href="#">Abdômen</a>
+            <a href="#">Ombros</a>
+        </div>
+        <div class="user-actions">
+            <div class="search-icon">🔍</div>
+            <div class="user-icon">👤</div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Construa Seu Próprio Treino</h1>
+            <p class="hero-description">Escolha entre centenas de exercícios de alta qualidade para personalizar seu treino e alcançar seus objetivos de condicionamento físico.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Começar Agora</button>
+                <button class="btn btn-secondary">Meus Treinos</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Exercises Sections -->
+    <h2 class="section-title">Exercícios Recomendados</h2>
+    <div class="exercises-row" id="recommendedExercises">
+        <!-- Exercícios serão adicionados via JavaScript -->
+    </div>
+    
+    <h2 class="section-title">Exercícios para Peito</h2>
+    <div class="exercises-row" id="chestExercises">
+        <!-- Exercícios serão adicionados via JavaScript -->
+    </div>
+    
+    <h2 class="section-title">Exercícios para Costas</h2>
+    <div class="exercises-row" id="backExercises">
+        <!-- Exercícios serão adicionados via JavaScript -->
+    </div>
+    
+    <h2 class="section-title">Exercícios para Pernas</h2>
+    <div class="exercises-row" id="legExercises">
+        <!-- Exercícios serão adicionados via JavaScript -->
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal" id="exerciseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Detalhes do Exercício</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img src="" alt="Exercício" class="modal-image" id="modalImage">
+                <h3 id="modalMuscleGroup">Grupo Muscular: </h3>
+                <p id="modalDifficulty">Dificuldade: </p>
+                <p id="modalEquipment">Equipamento: </p>
+                <p class="modal-description" id="modalDescription"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="favoriteBtn">Favoritar</button>
+                <button class="btn btn-primary" id="addToWorkoutBtn">Adicionar ao Treino</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+    
+    <script>
+        // Dados de exemplo para exercícios
+        const exercisesData = {
+            recommended: [
+                { id: 1, title: "Supino Reto", muscleGroup: "Peito", difficulty: "Intermediário", equipment: "Barra e Banco", image: "/api/placeholder/250/170", description: "O supino reto é um exercício composto que trabalha principalmente o peitoral maior, mas também envolve os deltoides anteriores e tríceps. Posicione-se deitado em um banco plano, segure a barra com as mãos um pouco mais largas que a largura dos ombros, abaixe a barra até tocar levemente o peito e então empurre de volta à posição inicial." },
+                { id: 2, title: "Agachamento", muscleGroup: "Pernas", difficulty: "Intermediário", equipment: "Barra ou Corporal", image: "/api/placeholder/250/170", description: "O agachamento é um exercício composto que trabalha principalmente os quadríceps, glúteos e isquiotibiais. Fique em pé com os pés na largura dos ombros, desça flexionando os joelhos como se fosse sentar em uma cadeira, mantendo o peito para cima e a coluna reta, desça até que as coxas fiquem paralelas ao chão e então retorne à posição inicial." },
+                { id: 3, title: "Puxada na Frente", muscleGroup: "Costas", difficulty: "Intermediário", equipment: "Máquina", image: "/api/placeholder/250/170", description: "A puxada na frente é um exercício que trabalha principalmente o latíssimo do dorso (costas). Sentado na máquina com os joelhos fixos sob os apoios, segure a barra com as mãos um pouco mais largas que a largura dos ombros, puxe a barra para baixo em direção ao peito, comprimindo as escápulas, e então retorne à posição inicial de forma controlada." },
+                { id: 4, title: "Elevação Lateral", muscleGroup: "Ombros", difficulty: "Iniciante", equipment: "Halteres", image: "/api/placeholder/250/170", description: "A elevação lateral é um exercício de isolamento que trabalha os deltoides laterais. Em pé com os pés na largura dos ombros, segure um haltere em cada mão ao lado do corpo, levante os braços lateralmente até que estejam paralelos ao chão, mantendo uma leve flexão nos cotovelos, e então abaixe de volta à posição inicial de forma controlada." },
+                { id: 5, title: "Rosca Direta", muscleGroup: "Braços", difficulty: "Iniciante", equipment: "Barra ou Halteres", image: "/api/placeholder/250/170", description: "A rosca direta é um exercício de isolamento que trabalha os bíceps. Em pé com os pés na largura dos ombros, segure uma barra ou halteres com as palmas das mãos voltadas para cima, mantenha os cotovelos próximos ao corpo, e flexione os antebraços levantando o peso em direção aos ombros, então abaixe de volta à posição inicial de forma controlada." }
+            ],
+            chest: [
+                { id: 6, title: "Supino Inclinado", muscleGroup: "Peito", difficulty: "Intermediário", equipment: "Barra e Banco", image: "/api/placeholder/250/170", description: "O supino inclinado é uma variação do supino reto que coloca mais ênfase na parte superior do peitoral. Posicione-se deitado em um banco inclinado a cerca de 30-45 graus, segure a barra com as mãos um pouco mais largas que a largura dos ombros, abaixe a barra até tocar levemente o peito e então empurre de volta à posição inicial." },
+                { id: 7, title: "Crucifixo", muscleGroup: "Peito", difficulty: "Intermediário", equipment: "Halteres", image: "/api/placeholder/250/170", description: "O crucifixo é um exercício de isolamento que foca no peitoral. Deite-se em um banco plano, segure os halteres acima do peito com os braços estendidos e uma leve flexão nos cotovelos, abra os braços lateralmente até sentir um alongamento no peito, e então retorne à posição inicial contraindo os músculos peitorais." },
+                { id: 8, title: "Flexão de Braços", muscleGroup: "Peito", difficulty: "Iniciante", equipment: "Corporal", image: "/api/placeholder/250/170", description: "A flexão de braços é um exercício composto que trabalha o peitoral, deltoides anteriores e tríceps. Posicione-se em posição de prancha com as mãos um pouco mais largas que a largura dos ombros, desça o corpo até que o peito quase toque o chão, mantendo o corpo em linha reta, e então empurre de volta à posição inicial." },
+                { id: 9, title: "Crossover", muscleGroup: "Peito", difficulty: "Intermediário", equipment: "Cabos", image: "/api/placeholder/250/170", description: "O crossover é um exercício realizado na máquina de cabos que isola e trabalha os músculos peitorais. Posicione-se no centro da máquina, segure as alças com os braços estendidos e uma leve flexão nos cotovelos, puxe os cabos para frente e para baixo em um movimento de arco até que as mãos se encontrem na frente do corpo, e então retorne à posição inicial de forma controlada." },
+                { id: 10, title: "Supino Declinado", muscleGroup: "Peito", difficulty: "Intermediário", equipment: "Barra e Banco", image: "/api/placeholder/250/170", description: "O supino declinado é uma variação do supino reto que coloca mais ênfase na parte inferior do peitoral. Posicione-se deitado em um banco declinado, segure a barra com as mãos um pouco mais largas que a largura dos ombros, abaixe a barra até tocar levemente a parte inferior do peito e então empurre de volta à posição inicial." }
+            ],
+            back: [
+                { id: 11, title: "Remada Curvada", muscleGroup: "Costas", difficulty: "Intermediário", equipment: "Barra", image: "/api/placeholder/250/170", description: "A remada curvada é um exercício composto que trabalha principalmente o latíssimo do dorso e os músculos do meio das costas. Fique em pé com os pés na largura dos ombros, segure a barra com as mãos um pouco mais largas que a largura dos ombros, incline o tronco para frente mantendo as costas retas, puxe a barra em direção ao abdômen, comprimindo as escápulas, e então abaixe de volta à posição inicial de forma controlada." },
+                { id: 12, title: "Puxada Alta", muscleGroup: "Costas", difficulty: "Intermediário", equipment: "Máquina", image: "/api/placeholder/250/170", description: "A puxada alta é uma variação da puxada na frente que coloca mais ênfase na parte superior das costas e nos trapézios. Sentado na máquina com os joelhos fixos sob os apoios, segure a barra com as mãos próximas uma da outra, puxe a barra para baixo em direção à nuca, comprimindo as escápulas, e então retorne à posição inicial de forma controlada." },
+                { id: 13, title: "Pull-Up", muscleGroup: "Costas", difficulty: "Avançado", equipment: "Barra Fixa", image: "/api/placeholder/250/170", description: "O pull-up é um exercício composto que trabalha o latíssimo do dorso, os romboides e os bíceps. Segure a barra fixa com as mãos em pronação (palmas voltadas para frente) e um pouco mais largas que a largura dos ombros, partindo da posição com os braços estendidos, puxe o corpo para cima até que o queixo ultrapasse a barra, e então desça de volta à posição inicial de forma controlada." },
+                { id: 14, title: "Remada Unilateral", muscleGroup: "Costas", difficulty: "Intermediário", equipment: "Halter e Banco", image: "/api/placeholder/250/170", description: "A remada unilateral é um exercício que trabalha o latíssimo do dorso e os músculos do meio das costas, permitindo maior foco em cada lado. Apoie um joelho e uma mão sobre um banco, mantendo a coluna neutra e paralela ao chão, segure um halter com a mão livre, puxe o halter em direção à cintura, comprimindo a escápula, e então abaixe de volta à posição inicial de forma controlada." },
+                { id: 15, title: "Pulldown com Corda", muscleGroup: "Costas", difficulty: "Intermediário", equipment: "Máquina com Corda", image: "/api/placeholder/250/170", description: "O pulldown com corda é uma variação da puxada na frente que permite um maior range de movimento e contração dos músculos das costas. Sentado na máquina com os joelhos fixos sob os apoios, segure as extremidades da corda com as palmas das mãos voltadas uma para a outra, puxe a corda para baixo em direção ao peito, expandindo os cotovelos lateralmente, comprimindo as escápulas, e então retorne à posição inicial de forma controlada." }
+            ],
+            legs: [
+                { id: 16, title: "Leg Press", muscleGroup: "Pernas", difficulty: "Intermediário", equipment: "Máquina", image: "/api/placeholder/250/170", description: "O leg press é um exercício composto que trabalha principalmente os quadríceps, glúteos e isquiotibiais. Sentado na máquina com as costas bem apoiadas, coloque os pés na plataforma na largura dos ombros, empurre a plataforma até estender as pernas (sem travar os joelhos), e então retorne à posição inicial de forma controlada, flexionando os joelhos a aproximadamente 90 graus." },
+                { id: 17, title: "Cadeira Extensora", muscleGroup: "Pernas", difficulty: "Iniciante", equipment: "Máquina", image: "/api/placeholder/250/170", description: "A cadeira extensora é um exercício de isolamento que trabalha os quadríceps. Sentado na máquina com as costas bem apoiadas, posicione os tornozelos atrás da almofada, estenda as pernas até que estejam completamente retas, e então retorne à posição inicial de forma controlada." },
+                { id: 18, title: "Cadeira Flexora", muscleGroup: "Pernas", difficulty: "Iniciante", equipment: "Máquina", image: "/api/placeholder/250/170", description: "A cadeira flexora é um exercício de isolamento que trabalha os isquiotibiais. Deitado na máquina com a parte frontal das pernas apoiada na almofada, flexione as pernas puxando a almofada em direção aos glúteos, e então retorne à posição inicial de forma controlada." },
+                { id: 19, title: "Avanço", muscleGroup: "Pernas", difficulty: "Intermediário", equipment: "Corporal ou Halteres", image: "/api/placeholder/250/170", description: "O avanço é um exercício unilateral que trabalha os quadríceps, glúteos e isquiotibiais. Em pé com os pés juntos, dê um passo à frente com uma perna, flexione ambos os joelhos até que a perna traseira quase toque o chão, mantendo o joelho da frente alinhado com o tornozelo, e então retorne à posição inicial empurrando através do calcanhar da perna da frente." },
+                { id: 20, title: "Stiff", muscleGroup: "Pernas", difficulty: "Intermediário", equipment: "Barra ou Halteres", image: "/api/placeholder/250/170", description: "O stiff é um exercício que trabalha principalmente os isquiotibiais e os glúteos. Em pé com os pés na largura dos quadris, segure uma barra ou halteres à frente do corpo, mantenha as pernas retas ou com uma leve flexão nos joelhos, incline o tronco para frente empurrando os quadris para trás até sentir um alongamento nos isquiotibiais, e então retorne à posição inicial contraindo os glúteos." }
+            ]
+        };
+        
+        // Função para criar cards de exercícios
+        function createExerciseCard(exercise) {
+            const card = document.createElement('div');
+            card.className = 'exercise-card';
+            card.dataset.id = exercise.id;
+            
+            card.innerHTML = `
+                <img src="${exercise.image}" alt="${exercise.title}" class="card-image">
+                <div class="card-info">
+                    <span class="card-title">${exercise.title}</span>
+                    <div class="card-actions">
+                        <span class="action-icon favorite-icon" data-id="${exercise.id}" title="Favoritar">❤️</span>
+                        <span class="action-icon add-icon" data-id="${exercise.id}" title="Adicionar ao Treino">➕</span>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Função para preencher as listas de exercícios
+        function populateExercises() {
+            const recommendedContainer = document.getElementById('recommendedExercises');
+            const chestContainer = document.getElementById('chestExercises');
+            const backContainer = document.getElementById('backExercises');
+            const legContainer = document.getElementById('legExercises');
+            
+            // Limpar os containers
+            recommendedContainer.innerHTML = '';
+            chestContainer.innerHTML = '';
+            backContainer.innerHTML = '';
+            legContainer.innerHTML = '';
+            
+            // Preencher com os exercícios
+            exercisesData.recommended.forEach(exercise => {
+                recommendedContainer.appendChild(createExerciseCard(exercise));
+            });
+            
+            exercisesData.chest.forEach(exercise => {
+                chestContainer.appendChild(createExerciseCard(exercise));
+            });
+            
+            exercisesData.back.forEach(exercise => {
+                backContainer.appendChild(createExerciseCard(exercise));
+            });
+            
+            exercisesData.legs.forEach(exercise => {
+                legContainer.appendChild(createExerciseCard(exercise));
+            });
+        }
+        
+        // Função para abrir o modal com detalhes do exercício
+        function openExerciseModal(exerciseId) {
+            const modal = document.getElementById('exerciseModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.querySelector('.modal-title');
+            const modalMuscleGroup = document.getElementById('modalMuscleGroup');
+            const modalDifficulty = document.getElementById('modalDifficulty');
+            const modalEquipment = document.getElementById('modalEquipment');
+            const modalDescription = document.getElementById('modalDescription');
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            const addToWorkoutBtn = document.getElementById('addToWorkoutBtn');
+            
+            // Encontrar o exercício pelos dados
+            let exercise = null;
+            for (const category in exercisesData) {
+                const found = exercisesData[category].find(ex => ex.id === parseInt(exerciseId));
+                if (found) {
+                    exercise = found;
+                    break;
+                }
+            }
+            
+            if (exercise) {
+                modalImage.src = exercise.image;
+                modalImage.alt = exercise.title;
+                modalTitle.textContent = exercise.title;
+                modalMuscleGroup.textContent = `Grupo Muscular: ${exercise.muscleGroup}`;
+                modalDifficulty.textContent = `Dificuldade: ${exercise.difficulty}`;
+                modalEquipment.textContent = `Equipamento: ${exercise.equipment}`;
+                modalDescription.textContent = exercise.description;
+                
+                // Atualizar IDs para os botões
+                favoriteBtn.dataset.id = exercise.id;
+                addToWorkoutBtn.dataset.id = exercise.id;
+                
+                // Verificar se o exercício já está favoritado
+                const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                if (favorites.includes(parseInt(exercise.id))) {
+                    favoriteBtn.classList.add('active');
+                    favoriteBtn.textContent = 'Remover dos Favoritos';
+                } else {
+                    favoriteBtn.classList.remove('active');
+                    favoriteBtn.textContent = 'Favoritar';
+                }
+                
+                // Verificar se o exercício já está no treino
+                const workout = JSON.parse(localStorage.getItem('workout') || '[]');
+                if (workout.includes(parseInt(exercise.id))) {
+                    addToWorkoutBtn.classList.add('active');
+                    addToWorkoutBtn.textContent = 'Remover do Treino';
+                } else {
+                    addToWorkoutBtn.classList.remove('active');
+                    addToWorkoutBtn.textContent = 'Adicionar ao Treino';
+                }
+                
+                modal.style.display = 'flex';
+            }
+        }
+        
+        // Função para fechar o modal
+        function closeExerciseModal() {
+            const modal = document.getElementById('exerciseModal');
+            modal.style.display = 'none';
+        }
+        
+        // Função para alternar favorito
+        function toggleFavorite(exerciseId) {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const index = favorites.indexOf(parseInt(exerciseId));
+            
+            if (index === -1) {
+                // Adicionar aos favoritos
+                favorites.push(parseInt(exerciseId));
+                showNotification('Exercício adicionado aos favoritos!');
+            } else {
+                // Remover dos favoritos
+                favorites.splice(index, 1);
+                showNotification('Exercício removido dos favoritos!');
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavoriteIcons();
+            
+            // Atualizar o botão no modal se estiver aberto
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            if (favoriteBtn && favoriteBtn.dataset.id === exerciseId) {
+                if (index === -1) {
+                    favoriteBtn.classList.add('active');
+                    favoriteBtn.textContent = 'Remover dos Favoritos';
+                } else {
+                    favoriteBtn.classList.remove('active');
+                    favoriteBtn.textContent = 'Favoritar';
+                }
+            }
+        }
+        
+        // Função para alternar adição ao treino
+        function toggleWorkout(exerciseId) {
+            const workout = JSON.parse(localStorage.getItem('workout') || '[]');
+            const index = workout.indexOf(parseInt(exerciseId));
+            
+            if (index === -1) {
+                // Adicionar ao treino
+                workout.push(parseInt(exerciseId));
+                showNotification('Exercício adicionado ao seu treino!');
+            } else {
+                // Remover do treino
+                workout.splice(index, 1);
+                showNotification('Exercício removido do seu treino!');
+            }
+            
+            localStorage.setItem('workout', JSON.stringify(workout));
+            updateWorkoutIcons();
+            
+            // Atualizar o botão no modal se estiver aberto
+            const addToWorkoutBtn = document.getElementById('addToWorkoutBtn');
+            if (addToWorkoutBtn && addToWorkoutBtn.dataset.id === exerciseId) {
+                if (index === -1) {
+                    addToWorkoutBtn.classList.add('active');
+                    addToWorkoutBtn.textContent = 'Remover do Treino';
+                } else {
+                    addToWorkoutBtn.classList.remove('active');
+                    addToWorkoutBtn.textContent = 'Adicionar ao Treino';
+                }
+            }
+        }
+        
+        // Função para atualizar ícones de favoritos
+        function updateFavoriteIcons() {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const favoriteIcons = document.querySelectorAll('.favorite-icon');
+            
+            favoriteIcons.forEach(icon => {
+                const id = parseInt(icon.dataset.id);
+                if (favorites.includes(id)) {
+                    icon.style.color = 'var(--secondary-color)';
+                } else {
+                    icon.style.color = 'var(--text-color)';
+                }
+            });
+        }
+        
+        // Função para atualizar ícones de treino
+        function updateWorkoutIcons() {
+            const workout = JSON.parse(localStorage.getItem('workout') || '[]');
+            const addIcons = document.querySelectorAll('.add-icon');
+            
+            addIcons.forEach(icon => {
+                const id = parseInt(icon.dataset.id);
+                if (workout.includes(id)) {
+                    icon.style.color = 'var(--secondary-color)';
+                } else {
+                    icon.style.color = 'var(--text-color)';
+                }
+            });
+        }
+        
+        // Função para mostrar notificação
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Função para mostrar tooltip
+        function showTooltip(element, text) {
+            const tooltip = document.getElementById('tooltip');
+            const rect = element.getBoundingClientRect();
+            
+            tooltip.textContent = text;
+            tooltip.style.top = `${rect.top - 30}px`;
+            tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltip.offsetWidth / 2)}px`;
+            tooltip.style.display = 'block';
+        }
+        
+        // Função para esconder tooltip
+        function hideTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.display = 'none';
+        }
+        
+        // Efeito da navbar ao rolar
+        function handleScroll() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Preencher exercícios
+            populateExercises();
+            
+            // Atualizar ícones
+            updateFavoriteIcons();
+            updateWorkoutIcons();
+            
+            // Eventos de click para favoritos e adicionar ao treino
+            document.addEventListener('click', (e) => {
+                // Favoritar exercício
+                if (e.target.classList.contains('favorite-icon')) {
+                    e.stopPropagation();
+                    toggleFavorite(e.target.dataset.id);
+                }
+                
+                // Adicionar ao treino
+                if (e.target.classList.contains('add-icon')) {
+                    e.stopPropagation();
+                    toggleWorkout(e.target.dataset.id);
+                }
+                
+                // Abrir modal de exercício
+                if (e.target.closest('.exercise-card')) {
+                    const card = e.target.closest('.exercise-card');
+                    openExerciseModal(card.dataset.id);
+                }
+                
+                // Fechar modal
+                if (e.target.classList.contains('close-modal') || 
+                    (e.target.classList.contains('modal') && !e.target.closest('.modal-content'))) {
+                    closeExerciseModal();
+                }
+                
+                // Botão de favoritar no modal
+                if (e.target.id === 'favoriteBtn') {
+                    toggleFavorite(e.target.dataset.id);
+                }
+                
+                // Botão de adicionar ao treino no modal
+                if (e.target.id === 'addToWorkoutBtn') {
+                    toggleWorkout(e.target.dataset.id);
+                }
+            });
+            
+            // Eventos de hover para tooltips
+            document.addEventListener('mouseover', (e) => {
+                if (e.target.classList.contains('favorite-icon')) {
+                    const id = parseInt(e.target.dataset.id);
+                    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+                    const text = favorites.includes(id) ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos';
+                    showTooltip(e.target, text);
+                }
+                
+                if (e.target.classList.contains('add-icon')) {
+                    const id = parseInt(e.target.dataset.id);
+                    const workout = JSON.parse(localStorage.getItem('workout') || '[]');
+                    const text = workout.includes(id) ? 'Remover do Treino' : 'Adicionar ao Treino';
+                    showTooltip(e.target, text);
+                }
+            });
+            
+            document.addEventListener('mouseout', (e) => {
+                if (e.target.classList.contains('favorite-icon') || e.target.classList.contains('add-icon')) {
+                    hideTooltip();
+                }
+            });
+            
+            // Navegação entre grupos musculares
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remover classe ativa de todos os links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Adicionar classe ativa ao link clicado
+                    link.classList.add('active');
+                    
+                    // Implementar navegação para as seções correspondentes
+                    const muscleGroup = link.textContent;
+                    
+                    // Aqui você poderia implementar um scroll suave para a seção correspondente
+                    // ou uma mudança dinâmica no conteúdo exibido
+                    showNotification(`Exercícios para ${muscleGroup} selecionados`);
+                });
+            });
+            
+            // Evento de scroll para efeito na navbar
+            window.addEventListener('scroll', handleScroll);
+        });
+    </script>
+</body>
+</html>
